@@ -1,0 +1,2977 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    148697,       2969]
+NotebookOptionsPosition[    143566,       2881]
+NotebookOutlinePosition[    143902,       2896]
+CellTagsIndexPosition[    143859,       2893]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.79673567547473*^9, 
+  3.796735676310782*^9}},ExpressionUUID->"e09cc3e4-67fc-4971-a5f2-\
+b14b0836e077"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"dt", ",", "LoadStep", ",", "LoadInc"}], "}"}], "=", 
+   RowBox[{"DefineLoadStep", "[", 
+    RowBox[{"0", ",", "1", ",", "20", ",", "1"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"InitializationUState", "[", 
+   RowBox[{"wMat", ",", "uMat", ",", "\[Sigma]", ",", "\[Epsilon]plas"}], 
+   "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7967357889944696`*^9, 3.796735807412443*^9}, {
+  3.796735899463428*^9, 3.796735923736713*^9}, {3.796736090998344*^9, 
+  3.796736104491475*^9}},
+ CellLabel->"In[58]:=",ExpressionUUID->"91f53ea9-a0d1-462b-8c50-fe067a645492"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[ScriptI]", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"itr", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<Step No. = \>\"", ",", "\[ScriptI]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<LoadFactor = \>\"", ",", 
+    RowBox[{"LoadStep", "[", 
+     RowBox[{"[", "\[ScriptI]", "]"}], "]"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"DirichletBC", "=", 
+   RowBox[{"AssociationThread", "[", 
+    RowBox[{"DirichletPoints", "->", 
+     RowBox[{
+      RowBox[{"LoadInc", "[", 
+       RowBox[{"[", "\[ScriptI]", "]"}], "]"}], "DirichletVals"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NeumannBC", "=", 
+   RowBox[{"AssociationThread", "[", 
+    RowBox[{"NeumannPoints", "\[Rule]", 
+     RowBox[{
+      RowBox[{"LoadStep", "[", 
+       RowBox[{"[", "\[ScriptI]", "]"}], "]"}], "NeumannVals"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"wMat", "=", 
+   RowBox[{"ReplacePart", "[", 
+    RowBox[{"wMat", ",", " ", "DirichletBC"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Err", ",", "rMat"}], "}"}], "=", 
+   RowBox[{"ParallelResidual", "[", 
+    RowBox[{"wMat", ",", "dt", ",", "True"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.796736109237001*^9, 3.7967361176511803`*^9}},
+ CellLabel->"In[60]:=",ExpressionUUID->"b36727f6-4453-4b73-879c-87f88ea6520e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Step No. = \"\>", "\[InvisibleSpace]", "2"}],
+  SequenceForm["Step No. = ", 2],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.796736152625862*^9},
+ CellLabel->
+  "During evaluation of \
+In[60]:=",ExpressionUUID->"e4ea6a89-82a9-4356-a002-b356a8a6ec7e"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"LoadFactor = \"\>", "\[InvisibleSpace]", "0.05`"}],
+  SequenceForm["LoadFactor = ", 0.05],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.796736152629204*^9},
+ CellLabel->
+  "During evaluation of \
+In[60]:=",ExpressionUUID->"3b290ec4-d23e-4838-a2e6-d675696f5c8d"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"ClearAll", "[", 
+  RowBox[{"L1", ",", "L2"}], "]"}]], "Input",
+ CellChangeTimes->{{3.7967380851810837`*^9, 3.79673808971373*^9}},
+ CellLabel->
+  "In[844]:=",ExpressionUUID->"fc9567c5-0c66-401a-9a5b-5c661406c686"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MaxMemoryUsed", "[", "]"}]], "Input",
+ CellLabel->
+  "In[1041]:=",ExpressionUUID->"a6d01fd8-0ae2-4306-9bad-76e976162760"],
+
+Cell[BoxData["156136424"], "Output",
+ CellChangeTimes->{3.7967387224347677`*^9},
+ CellLabel->
+  "Out[1041]=",ExpressionUUID->"e5c0cd64-009f-47f1-a8ed-f515dd68aea7"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"$HistoryLength", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ParallelEvaluate", "[", 
+   RowBox[{"$HistoryLength", "=", "0"}], "]"}], ";"}]}], "Input",
+ CellLabel->
+  "In[806]:=",ExpressionUUID->"e8a5b1fa-e3c0-4f36-a87a-a5dc85de18cb"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"L1", " ", "=", 
+     RowBox[{"Flatten", "[", 
+      RowBox[{"Names", "/@", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "<>", "\"\<*\>\""}], "&"}], "/@", 
+         RowBox[{"Contexts", "[", "]"}]}], ")"}]}], "]"}]}], ";"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"L1", " ", "=", 
+     RowBox[{"Names", "[", "\"\<System`RealRootsDump`*\>\"", "]"}]}], ";"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"L1", " ", "=", 
+     RowBox[{
+     "Names", "[", "\"\<System`Private`OptionsPatternVariable*\>\"", "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ParallelEvaluate", "[", 
+     RowBox[{"M0", " ", "=", " ", 
+      RowBox[{"MemoryInUse", "[", "]"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"M0", "=", 
+    RowBox[{
+     RowBox[{"Plus", "@@", 
+      RowBox[{"ParallelEvaluate", "[", "M0", "]"}]}], "/", 
+     SuperscriptBox["1024.", "2"]}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"KMat", "=", 
+     RowBox[{"ParallelStiffness", "[", 
+      RowBox[{"wMat", ",", "dt"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"udsol", "=", 
+     RowBox[{"LinearSolve", "[", 
+      RowBox[{
+       RowBox[{"KMat", "[", 
+        RowBox[{"[", 
+         RowBox[{"IDno", ",", "IDno"}], "]"}], "]"}], ",", 
+       RowBox[{"rMat", "[", 
+        RowBox[{"[", "IDno", "]"}], "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"udMat", "=", 
+     RowBox[{"SparseArray", "[", 
+      RowBox[{
+       RowBox[{"{", "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"ndof", "*", "nnp"}], "}"}], ",", "0.0"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"udMat", "[", 
+      RowBox[{"[", "IDno", "]"}], "]"}], "=", "udsol"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"wMat", "+=", 
+     SuperscriptBox[
+      RowBox[{"ArrayReshape", "[", 
+       RowBox[{"udMat", ",", 
+        RowBox[{"{", 
+         RowBox[{"nnp", ",", "ndof"}], "}"}]}], "]"}], "\[Transpose]"]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Err", ",", "rMat"}], "}"}], "=", 
+     RowBox[{"ParallelResidual", "[", 
+      RowBox[{"wMat", ",", "dt", ",", "True"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<Iteration: \>\"", ",", "itr", ",", 
+      "\"\<. \\n Norm of residual for w : \>\"", ",", "Err"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Sigma]", ",", "\[Epsilon]plas"}], "}"}], "=", 
+     RowBox[{"ParallelUpdateStates", "[", 
+      RowBox[{"\[Sigma]", ",", "\[Epsilon]plas", ",", "wMat", ",", "dt"}], 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"uMat", "+=", "wMat"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ClearSystemCache", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"L2", " ", "=", 
+     RowBox[{
+     "Names", "[", "\"\<System`Private`OptionsPatternVariable*\>\"", "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"L2", " ", "=", 
+      RowBox[{"Flatten", "[", 
+       RowBox[{"Names", "/@", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"#", "<>", "\"\<*\>\""}], "&"}], "/@", 
+          RowBox[{"Contexts", "[", "]"}]}], ")"}]}], "]"}]}], ";"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"L2", " ", "=", 
+      RowBox[{"Names", "[", "\"\<System`RealRootsDump`*\>\"", "]"}]}], ";"}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"Left1", " ", "=", " ", 
+    RowBox[{"Complement", "[", 
+     RowBox[{"L2", ",", "L1"}], "]"}]}], "\[IndentingNewLine]", 
+   RowBox[{"Left1", "//", "Length"}], "\[IndentingNewLine]", 
+   RowBox[{"L2", "//", "Length"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"L2", " ", "=", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"myByteCount", "/@", 
+         RowBox[{
+          RowBox[{"Names", "[", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"2", ";;"}], "]"}], "]"}]}], ")"}], "[", 
+       RowBox[{"[", 
+        RowBox[{";;", ",", "1"}], "]"}], "]"}]}], ";"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Position", "[", 
+     RowBox[{
+      RowBox[{"L2", "-", "L1"}], ",", 
+      RowBox[{"x_", "/;", 
+       RowBox[{"x", ">", "0.001"}]}]}], "]"}], "*)"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ParallelEvaluate", "[", 
+     RowBox[{"M1", " ", "=", " ", 
+      RowBox[{"MemoryInUse", "[", "]"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"M1", "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"Plus", "@@", 
+       RowBox[{"ParallelEvaluate", "[", "M1", "]"}]}], ")"}], "/", 
+     "1024."}]}], "\[IndentingNewLine]", 
+   RowBox[{"M1", "-", "M0"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.796735903005061*^9, 3.796735925311873*^9}, {
+   3.7967359560884447`*^9, 3.796735992704343*^9}, {3.7967360332706347`*^9, 
+   3.796736044065443*^9}, 3.7967362277007723`*^9, {3.796736302996295*^9, 
+   3.796736380973921*^9}, {3.7967367821486197`*^9, 3.796736786148266*^9}, {
+   3.7967369974875917`*^9, 3.79673703725568*^9}, {3.796737183444416*^9, 
+   3.796737229199624*^9}, {3.796737288990171*^9, 3.796737300027719*^9}, {
+   3.7967374642806807`*^9, 3.796737467217057*^9}, 3.796737826471199*^9, {
+   3.796738077923792*^9, 3.7967380824795847`*^9}, {3.796738189886911*^9, 
+   3.796738273154554*^9}, {3.796738406452731*^9, 3.796738451200327*^9}, {
+   3.7967385550157824`*^9, 3.796738594916769*^9}, {3.796745503295905*^9, 
+   3.7967455034503508`*^9}},ExpressionUUID->"faab4fed-41e5-434d-8a7a-\
+68991b246f34"],
+
+Cell[BoxData["151056.453125`"], "Output",
+ CellChangeTimes->{{3.7967359144662533`*^9, 3.796735938829154*^9}, {
+   3.7967359695821133`*^9, 3.7967360379642572`*^9}, 3.79673611958887*^9, {
+   3.796736156892963*^9, 3.7967362390244503`*^9}, {3.796736291934559*^9, 
+   3.796736317185233*^9}, {3.796736367867757*^9, 3.796736392148815*^9}, 
+   3.7967365834876966`*^9, 3.796736827206732*^9, {3.796737040844474*^9, 
+   3.796737055711834*^9}, {3.796737166586069*^9, 3.7967372760182037`*^9}, 
+   3.796737333809536*^9, 3.796737486829885*^9, 3.7967376556587963`*^9, 
+   3.79673809143287*^9, {3.796738277424324*^9, 3.796738288027955*^9}, 
+   3.7967383290396137`*^9, {3.796738411300749*^9, 3.796738454600234*^9}, {
+   3.796738595457315*^9, 3.796738620599659*^9}, 3.79673882040984*^9},
+ CellLabel->
+  "Out[1044]=",ExpressionUUID->"b3be8c0f-6d12-4c4b-8650-d5286ab15d1c"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Iteration: \"\>", "\[InvisibleSpace]", "0", 
+   "\[InvisibleSpace]", "\<\". \\n Norm of residual for w : \"\>", 
+   "\[InvisibleSpace]", "0.00706198146100423`"}],
+  SequenceForm[
+  "Iteration: ", 0, ". \n Norm of residual for w : ", 0.00706198146100423],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.796735969158103*^9, 3.7967360379669647`*^9}, 
+   3.796736120944478*^9, {3.79673615685441*^9, 3.796736237870833*^9}, {
+   3.7967362907098627`*^9, 3.7967363196485853`*^9}, {3.7967363703221684`*^9, 
+   3.796736393688588*^9}, 3.796736587456147*^9, 3.796736829837706*^9, {
+   3.796737043560575*^9, 3.796737057188121*^9}, {3.7967371680016737`*^9, 
+   3.7967372794147778`*^9}, 3.7967373361839867`*^9, 3.7967374890843687`*^9, 
+   3.7967376572580976`*^9, 3.796738092934362*^9, {3.7967382790852423`*^9, 
+   3.7967382916633053`*^9}, 3.796738331371313*^9, {3.796738413607233*^9, 
+   3.796738456067049*^9}, {3.79673859724129*^9, 3.79673862304519*^9}, 
+   3.796738822855144*^9},
+ CellLabel->
+  "During evaluation of \
+In[1042]:=",ExpressionUUID->"0f84a20a-7b92-492a-bc5a-ce53be3a2e3a"],
+
+Cell[BoxData[
+ RowBox[{"{", "}"}]], "Output",
+ CellChangeTimes->{{3.7967359144662533`*^9, 3.796735938829154*^9}, {
+   3.7967359695821133`*^9, 3.7967360379642572`*^9}, 3.79673611958887*^9, {
+   3.796736156892963*^9, 3.7967362390244503`*^9}, {3.796736291934559*^9, 
+   3.796736317185233*^9}, {3.796736367867757*^9, 3.796736392148815*^9}, 
+   3.7967365834876966`*^9, 3.796736827206732*^9, {3.796737040844474*^9, 
+   3.796737055711834*^9}, {3.796737166586069*^9, 3.7967372760182037`*^9}, 
+   3.796737333809536*^9, 3.796737486829885*^9, 3.7967376556587963`*^9, 
+   3.79673809143287*^9, {3.796738277424324*^9, 3.796738288027955*^9}, 
+   3.7967383290396137`*^9, {3.796738411300749*^9, 3.796738454600234*^9}, {
+   3.796738595457315*^9, 3.796738620599659*^9}, 3.7967388241309643`*^9},
+ CellLabel->
+  "Out[1056]=",ExpressionUUID->"141e3dbb-d224-42de-9672-3078ce402944"],
+
+Cell[BoxData["0"], "Output",
+ CellChangeTimes->{{3.7967359144662533`*^9, 3.796735938829154*^9}, {
+   3.7967359695821133`*^9, 3.7967360379642572`*^9}, 3.79673611958887*^9, {
+   3.796736156892963*^9, 3.7967362390244503`*^9}, {3.796736291934559*^9, 
+   3.796736317185233*^9}, {3.796736367867757*^9, 3.796736392148815*^9}, 
+   3.7967365834876966`*^9, 3.796736827206732*^9, {3.796737040844474*^9, 
+   3.796737055711834*^9}, {3.796737166586069*^9, 3.7967372760182037`*^9}, 
+   3.796737333809536*^9, 3.796737486829885*^9, 3.7967376556587963`*^9, 
+   3.79673809143287*^9, {3.796738277424324*^9, 3.796738288027955*^9}, 
+   3.7967383290396137`*^9, {3.796738411300749*^9, 3.796738454600234*^9}, {
+   3.796738595457315*^9, 3.796738620599659*^9}, 3.7967388241338253`*^9},
+ CellLabel->
+  "Out[1057]=",ExpressionUUID->"aa757f61-b1ff-4fcf-b5a8-e34f17927439"],
+
+Cell[BoxData["767"], "Output",
+ CellChangeTimes->{{3.7967359144662533`*^9, 3.796735938829154*^9}, {
+   3.7967359695821133`*^9, 3.7967360379642572`*^9}, 3.79673611958887*^9, {
+   3.796736156892963*^9, 3.7967362390244503`*^9}, {3.796736291934559*^9, 
+   3.796736317185233*^9}, {3.796736367867757*^9, 3.796736392148815*^9}, 
+   3.7967365834876966`*^9, 3.796736827206732*^9, {3.796737040844474*^9, 
+   3.796737055711834*^9}, {3.796737166586069*^9, 3.7967372760182037`*^9}, 
+   3.796737333809536*^9, 3.796737486829885*^9, 3.7967376556587963`*^9, 
+   3.79673809143287*^9, {3.796738277424324*^9, 3.796738288027955*^9}, 
+   3.7967383290396137`*^9, {3.796738411300749*^9, 3.796738454600234*^9}, {
+   3.796738595457315*^9, 3.796738620599659*^9}, 3.7967388241377277`*^9},
+ CellLabel->
+  "Out[1058]=",ExpressionUUID->"6a47da83-2d93-4300-9664-2a4bc10996f2"],
+
+Cell[BoxData["151692.8203125`"], "Output",
+ CellChangeTimes->{{3.7967359144662533`*^9, 3.796735938829154*^9}, {
+   3.7967359695821133`*^9, 3.7967360379642572`*^9}, 3.79673611958887*^9, {
+   3.796736156892963*^9, 3.7967362390244503`*^9}, {3.796736291934559*^9, 
+   3.796736317185233*^9}, {3.796736367867757*^9, 3.796736392148815*^9}, 
+   3.7967365834876966`*^9, 3.796736827206732*^9, {3.796737040844474*^9, 
+   3.796737055711834*^9}, {3.796737166586069*^9, 3.7967372760182037`*^9}, 
+   3.796737333809536*^9, 3.796737486829885*^9, 3.7967376556587963`*^9, 
+   3.79673809143287*^9, {3.796738277424324*^9, 3.796738288027955*^9}, 
+   3.7967383290396137`*^9, {3.796738411300749*^9, 3.796738454600234*^9}, {
+   3.796738595457315*^9, 3.796738620599659*^9}, 3.7967388241412563`*^9},
+ CellLabel->
+  "Out[1060]=",ExpressionUUID->"593f8815-c4ea-4363-ab78-92008b909465"],
+
+Cell[BoxData["636.3671875`"], "Output",
+ CellChangeTimes->{{3.7967359144662533`*^9, 3.796735938829154*^9}, {
+   3.7967359695821133`*^9, 3.7967360379642572`*^9}, 3.79673611958887*^9, {
+   3.796736156892963*^9, 3.7967362390244503`*^9}, {3.796736291934559*^9, 
+   3.796736317185233*^9}, {3.796736367867757*^9, 3.796736392148815*^9}, 
+   3.7967365834876966`*^9, 3.796736827206732*^9, {3.796737040844474*^9, 
+   3.796737055711834*^9}, {3.796737166586069*^9, 3.7967372760182037`*^9}, 
+   3.796737333809536*^9, 3.796737486829885*^9, 3.7967376556587963`*^9, 
+   3.79673809143287*^9, {3.796738277424324*^9, 3.796738288027955*^9}, 
+   3.7967383290396137`*^9, {3.796738411300749*^9, 3.796738454600234*^9}, {
+   3.796738595457315*^9, 3.796738620599659*^9}, 3.7967388241449213`*^9},
+ CellLabel->
+  "Out[1061]=",ExpressionUUID->"bf3b8559-0adb-440e-9ec5-13a17bda7b43"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Extract", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Names", "[", "]"}], "[", 
+    RowBox[{"[", 
+     RowBox[{"2", ";;"}], "]"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", "22947", "}"}], ",", 
+     RowBox[{"{", "44735", "}"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.79673846617675*^9, 3.796738480481737*^9}},
+ CellLabel->
+  "In[975]:=",ExpressionUUID->"2c81574b-fc92-47d3-9952-c03e044ae85b"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"GeoLabels\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$718506$\"\>"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.796738481219131*^9},
+ CellLabel->
+  "Out[975]=",ExpressionUUID->"6732bc61-0657-4f95-8e89-288da5896d7c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Names", "[", "\"\<System`Private`OptionsPatternVariable*\>\"", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.796738499475173*^9, 3.796738512641556*^9}, {
+  3.796738628895482*^9, 3.796738632014124*^9}},
+ CellLabel->
+  "In[1040]:=",ExpressionUUID->"cdba2402-b079-49ce-974a-a5b3777e00f3"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"System`Private`OptionsPatternVariable\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$100$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$102$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$103$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$104$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$105$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$106$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$107$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$108$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$109$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$110$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$112$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$113$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$114$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$115$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$116$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$117$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1196$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$119$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$120$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1212$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1213$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1214$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1215$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1217$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1218$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$121$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1220$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1221$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1222$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1223$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$122$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1230$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1231$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1232$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1234$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1248$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1249$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$124$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1250$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1251$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1252$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1253$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1254$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1255$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1260$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1261$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$126$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1278$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$127$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1280$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1282$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1284$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1286$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1287$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1288$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1289$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1290$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1291$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1301$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1303$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1305$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1307$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1309$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1310$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1311$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1312$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1313$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1314$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1345$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1346$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1348$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1349$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1350$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1351$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1352$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1353$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1354$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1355$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1356$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1357$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1358$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1359$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1382$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1383$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1384$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1385$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1386$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1387$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1389$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1391$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1393$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1395$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1397$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1398$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1399$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1400$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1401$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1402$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1403$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1405$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1435$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1436$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1437$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1438$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1439$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1440$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1441$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1442$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1443$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1444$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1445$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1446$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1447$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1448$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1449$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1450$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1451$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1455$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1456$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1457$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1458$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1459$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1460$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1461$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1462$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1463$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1464$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1465$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1466$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1467$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1468$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1469$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1470$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1471$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1472$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1473$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1474$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1475$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1476$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1477$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1478$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1479$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1480$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1481$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1482$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1483$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1484$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1485$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1486$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1487$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1488$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1489$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1490$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1491$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1492$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1493$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1494$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1495$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1496$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1497$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1498$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1499$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1500$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1501$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1502$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1503$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1504$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1505$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1506$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1507$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1508$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1509$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1510$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1511$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1512$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1513$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1514$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1515$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1516$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1517$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1518$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1519$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$151$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1520$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1521$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1556$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1557$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1565$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1567$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1569$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1571$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1572$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1573$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1574$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1575$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1576$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1577$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1578$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1601$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1602$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1603$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1605$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1606$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1607$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1608$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1609$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1610$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1611$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1612$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1613$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1614$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1615$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1646$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1647$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1648$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1649$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1650$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1651$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1652$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$195253$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$195254$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$195255$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$195256$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$195257$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1952$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1953$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1954$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1966$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1967$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1969$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1990$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1991$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1992$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1993$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1994$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1995$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1996$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1997$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$1998$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2000$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2002$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2003$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2004$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2005$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2009$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2010$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2011$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2012$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2013$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2014$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2016$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2017$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2018$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2019$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$201$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2020$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2021$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2022$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2023$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2024$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2025$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$202$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$203$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$205$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$206$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$207$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$209$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2184$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2185$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2186$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2187$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$21$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2483$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2498$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2501$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2503$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2504$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$25$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2661$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2662$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2663$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2664$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2665$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2666$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2667$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2668$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2669$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2670$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2671$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2672$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2674$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2675$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2676$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2677$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2678$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2679$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2680$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2681$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2727$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2728$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2729$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2730$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2731$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2732$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2734$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2735$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2736$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2737$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2738$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2739$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2740$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2741$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2742$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2743$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2745$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2746$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2747$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2748$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2750$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2752$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2754$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2756$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2757$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2758$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2759$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2760$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2761$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2762$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2764$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2765$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2766$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2767$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2768$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2769$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2770$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2771$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2772$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2773$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2774$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2775$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2776$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2777$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2778$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2780$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2781$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2782$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2783$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2784$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2785$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2822$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2823$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2827$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2830$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2831$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2832$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2833$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2834$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2835$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2836$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2837$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2838$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2839$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2840$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2841$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2842$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2843$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2844$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2845$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2846$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2847$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2848$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2849$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2850$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2851$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2853$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2855$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2857$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2859$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2861$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2863$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2864$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2865$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2866$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2867$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2868$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2870$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2884$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2885$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2886$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2887$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2888$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2889$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2890$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2891$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2892$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2893$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2894$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2895$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2896$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2897$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2898$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2899$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2900$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2901$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2902$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2918$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2919$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2920$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2921$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2922$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2923$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2924$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2925$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2926$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2927$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2928$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2929$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2930$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2931$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2932$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2933$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2934$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2935$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2936$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2937$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2938$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2939$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2940$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2941$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2942$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2943$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2944$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2945$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2946$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2947$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2948$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2949$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2950$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2951$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2952$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2953$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2954$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2955$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2957$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2958$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2960$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2962$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2964$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2966$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2967$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2968$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2969$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2970$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2972$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2973$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2974$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2975$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2976$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2977$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2978$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2979$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2980$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2981$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2982$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2983$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2984$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2985$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2986$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2987$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2988$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2989$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2990$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2991$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2992$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2993$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2994$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2995$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2996$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2997$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$2999$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3001$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3002$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3004$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3006$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3007$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3008$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3009$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3010$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3011$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3012$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3013$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3014$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3017$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3018$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3019$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3020$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3021$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3022$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3057$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3059$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3061$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3065$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3067$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3069$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3072$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3075$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3077$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3079$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3081$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3083$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3085$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3087$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3089$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3091$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3093$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3095$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3098$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3101$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3103$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3105$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3107$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3109$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3111$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3113$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3115$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3117$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3119$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3121$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3123$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3125$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3127$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3129$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3131$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3133$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3134$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3135$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3136$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3137$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3139$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3141$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3143$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3145$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3147$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3148$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3149$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3150$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3151$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3152$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3153$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3154$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3155$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3156$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3157$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3158$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3159$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3160$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3161$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3162$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3163$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3164$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3165$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3166$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3168$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3169$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$31$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$32$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$33$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$34$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$35$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3813$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3817$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3948$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3952$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3953$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3955$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3956$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3957$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3958$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3959$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3961$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3963$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3964$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3965$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3967$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3971$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3975$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3976$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3977$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3979$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3980$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3984$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3985$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3986$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3987$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3988$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3989$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3990$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3991$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3994$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3996$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$3999$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4000$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4001$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4003$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4004$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4007$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4009$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4010$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4012$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4046$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4047$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4048$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4074$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4075$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4076$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4077$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4078$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4079$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4080$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4081$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4084$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4219$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$4220$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$51$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$53$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$54$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$55$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$56$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$57$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$58$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$59$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$60$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$610$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$611$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$612$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$615$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$618$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$619$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$61$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$620$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$621$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$622$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$623$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$624$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$625$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$628$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$62$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$63$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$64$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$65$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$66$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$671$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$672$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$673$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$676$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$677$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$689$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$68$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$690$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$691$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$692$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$697$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$698$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$699$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$69$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$705$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$707$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$70$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$718504$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$718505$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$718506$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$718507$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$718508$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$718514$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$718519$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$718520$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$722341$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$722342$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$722343$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$722344$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$722345$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$722346$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$722347$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$722998$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$722999$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$725$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$726$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$727$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$728$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$729$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$72$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$74$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$75$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$76$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$77$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$792$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$794$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$796$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$798$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$800$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$803$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$806$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$808$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$810$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$812$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$814$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$816$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$818$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$820$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$823$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$827$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$831$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$835$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$839$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$843$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$847$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$851$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$854$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$856$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$858$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$860$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$862$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$864$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$866$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$869$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$86$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$872$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$874$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$876$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$878$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$880$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$882$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$884$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$886$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$888$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$890$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$892$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$894$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$896$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$898$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$900$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$902$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$904$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$906$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$908$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$910$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$912$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$914$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$916$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$918$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$920$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$922$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$923$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$924$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$926$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$927$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$92$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$936$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$937$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$938$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$939$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$93$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$940$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$94$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$96$\"\>", 
+   ",", "\<\"System`Private`OptionsPatternVariable$98$\"\>"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.7967385132846737`*^9, 3.796738525537945*^9}, {
+  3.7967386301452103`*^9, 3.796738632500054*^9}},
+ CellLabel->
+  "Out[1040]=",ExpressionUUID->"4d711567-b028-46c3-aca3-ea680dfb60b8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["System`Private`OptionsPatternVariable$718506$"], "Input",
+ CellLabel->
+  "In[976]:=",ExpressionUUID->"f9d5ae0e-04a6-42db-915a-918925b64424"],
+
+Cell[BoxData["System`Private`OptionsPatternVariable$718506$"], "Output",
+ CellChangeTimes->{3.7967384925789013`*^9},
+ CellLabel->
+  "Out[976]=",ExpressionUUID->"bdc573d2-3ed9-48ab-ac44-1c47c3c05234"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"L2", "-", "L1"}]], "Input",
+ CellChangeTimes->{{3.796738322166381*^9, 3.796738322724802*^9}},
+ CellLabel->
+  "In[902]:=",ExpressionUUID->"7da66bd9-8e0a-4756-9603-230767bf0ceb"],
+
+Cell[BoxData[
+ InterpretationBox[
+  TagBox[
+   FrameBox[GridBox[{
+      {
+       ItemBox[
+        TagBox[
+         RowBox[{"{", 
+          RowBox[{
+          "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", 
+           TemplateBox[{"53143"},
+            "OutputSizeLimit`Skeleton"], ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+           "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+           ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`"}], "}"}],
+         Short[#, 5]& ],
+        BaseStyle->{Deployed -> False},
+        StripOnInput->False]},
+      {GridBox[{
+         {
+          PaneBox[
+           TagBox[
+            TooltipBox[
+             StyleBox[
+              StyleBox[
+               DynamicBox[ToBoxes[
+                 FEPrivate`FrontEndResource[
+                 "FEStrings", "sizeBriefExplanation"], StandardForm],
+                ImageSizeCache->{58., {2., 8.}}],
+               StripOnInput->False,
+               DynamicUpdating->True,
+               LineSpacing->{1, 2},
+               LineIndent->0,
+               LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLText",
+              StripOnInput->False],
+             StyleBox[
+              DynamicBox[
+               ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeExplanation"], 
+                StandardForm]], DynamicUpdating -> True, LineIndent -> 0, 
+              LinebreakAdjustments -> {1., 100, 0, 0, 0}, 
+              LineSpacing -> {1, 2}, StripOnInput -> False]],
+            Annotation[#, 
+             Style[
+              Dynamic[
+               FEPrivate`FrontEndResource["FEStrings", "sizeExplanation"]], 
+              DynamicUpdating -> True, LineIndent -> 0, 
+              LinebreakAdjustments -> {1., 100, 0, 0, 0}, 
+              LineSpacing -> {1, 2}], "Tooltip"]& ],
+           Alignment->Center,
+           BaselinePosition->Baseline,
+           ImageSize->{Automatic, {25, Full}}], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowLess"], 
+                StandardForm],
+               ImageSizeCache->{50., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowLess"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, {25, Full}}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           
+           ButtonFunction:>OutputSizeLimit`ButtonFunction[
+            OutputSizeLimit`Defer, 902, 33004633137236832476, 5/2],
+           Enabled->True,
+           Evaluator->Automatic,
+           Method->"Queued"], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowMore"], 
+                StandardForm],
+               ImageSizeCache->{56., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowMore"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, {25, Full}}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           
+           ButtonFunction:>OutputSizeLimit`ButtonFunction[
+            OutputSizeLimit`Defer, 902, 33004633137236832476, 5 2],
+           Enabled->True,
+           Evaluator->Automatic,
+           Method->"Queued"], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowAll"], 
+                StandardForm],
+               ImageSizeCache->{42., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowAll"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, {25, Full}}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           
+           ButtonFunction:>OutputSizeLimit`ButtonFunction[
+            OutputSizeLimit`Defer, 902, 33004633137236832476, Infinity],
+           Enabled->True,
+           Evaluator->Automatic,
+           Method->"Queued"], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeChangeLimit"], 
+                StandardForm],
+               ImageSizeCache->{74., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeChangeLimit"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, {25, Full}}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           ButtonFunction:>FrontEndExecute[{
+              FrontEnd`SetOptions[
+              FrontEnd`$FrontEnd, 
+               FrontEnd`PreferencesSettings -> {"Page" -> "Advanced"}], 
+              FrontEnd`FrontEndToken["PreferencesDialog"]}],
+           Evaluator->None,
+           Method->"Preemptive"]}
+        },
+        AutoDelete->False,
+        FrameStyle->GrayLevel[0.85],
+        GridBoxDividers->{"Columns" -> {False, {True}}},
+        GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+        GridBoxSpacings->{"Columns" -> {{2}}}]}
+     },
+     DefaultBaseStyle->"Column",
+     GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+     GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+     GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{1.}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.5599999999999999]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], 
+         Offset[1.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}],
+    BaseStyle->"OutputSizeLimit",
+    FrameMargins->{{12, 12}, {0, 15}},
+    FrameStyle->GrayLevel[0.85],
+    RoundingRadius->5,
+    StripOnInput->False],
+   Deploy,
+   DefaultBaseStyle->"Deploy"],
+  If[33004633137236832476 === $SessionID, 
+   Out[902], Message[
+     MessageName[Syntax, "noinfoker"]]; Missing["NotAvailable"]; 
+   Null]]], "Output",
+ CellChangeTimes->{{3.7967383188197393`*^9, 3.79673832306396*^9}},
+ CellLabel->
+  "Out[902]=",ExpressionUUID->"9846e774-d1ea-4a35-8536-f4d134914a6f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Names", "[", 
+  RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.796737844667963*^9, 3.796737852481739*^9}},
+ CellLabel->
+  "In[830]:=",ExpressionUUID->"2eb19842-1966-474c-a60a-1682c91e2bf8"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"abt\"\>", ",", "\<\"aMat\"\>", ",", "\<\"ApplyTraction\"\>", 
+   ",", "\<\"args\"\>", ",", "\<\"AUdMat\"\>", ",", "\<\"B\"\>", 
+   ",", "\<\"BMat\"\>", ",", "\<\"BMat$\"\>", ",", "\<\"Bttm\"\>", 
+   ",", "\<\"BttmRit\"\>", ",", "\<\"CalAUdMat\"\>", ",", "\<\"CalEE\"\>", 
+   ",", "\<\"CalKMat\"\>", ",", "\<\"CalrMat\"\>", ",", "\<\"CalState\"\>", 
+   ",", "\<\"ComputeEE\"\>", ",", "\<\"ComputeResidualMatrixU\"\>", 
+   ",", "\<\"ComputeStiffnessMatrixU\"\>", 
+   ",", "\<\"ComputeStressProjection\"\>", ",", "\<\"coord\"\>", 
+   ",", "\<\"Coords\"\>", ",", "\<\"coord$\"\>", ",", "\<\"CrackLen\"\>", 
+   ",", "\<\"de\"\>", ",", "\<\"DefineBCs\"\>", 
+   ",", "\<\"DefineGaussAndSFInfo\"\>", ",", "\<\"DefineLoadStep\"\>", 
+   ",", "\<\"dims\"\>", ",", "\<\"DirichletBC\"\>", 
+   ",", "\<\"DirichletDof\"\>", ",", "\<\"DirichletPoints\"\>", 
+   ",", "\<\"DirichletVals\"\>", ",", "\<\"dN\"\>", ",", "\<\"dState\"\>", 
+   ",", "\<\"dt\"\>", ",", "\<\"dt$\"\>", ",", "\<\"d\[Epsilon]\"\>", 
+   ",", "\<\"d\[Epsilon]plas\"\>", ",", "\<\"d\[Sigma]\"\>", ",", "\<\"e\"\>",
+    ",", "\<\"e0\"\>", ",", "\<\"e0$\"\>", ",", "\<\"edge\"\>", 
+   ",", "\<\"Edge\"\>", ",", "\<\"Edges\"\>", ",", "\<\"Edge$\"\>", 
+   ",", "\<\"Eg\"\>", ",", "\<\"ELEd\"\>", ",", "\<\"ELEdu\"\>", 
+   ",", "\<\"ELEdu$\"\>", ",", "\<\"ELEEg\"\>", ",", "\<\"ELEf\"\>", 
+   ",", "\<\"ELEk\"\>", ",", "\<\"elementOrder\"\>", 
+   ",", "\<\"ElementQuad\"\>", ",", "\<\"ElementQuadEndId\"\>", 
+   ",", "\<\"ElementQuadSttId\"\>", ",", "\<\"ElementTri\"\>", 
+   ",", "\<\"ElementTriSttId\"\>", ",", "\<\"ElementType\"\>", 
+   ",", "\<\"ELEr\"\>", ",", "\<\"ELEt\"\>", ",", "\<\"ELEtMat\"\>", 
+   ",", "\<\"ELEu\"\>", ",", "\<\"ELE\[Sigma]\"\>", ",", "\<\"ElTypId\"\>", 
+   ",", "\<\"ElTypId$\"\>", ",", "\<\"Err\"\>", ",", "\<\"ExternalWork\"\>", 
+   ",", "\<\"ExternalWorkf\"\>", ",", "\<\"f\"\>", ",", "\<\"f0\"\>", 
+   ",", "\<\"f0$\"\>", ",", "\<\"factor\"\>", ",", "\<\"Fd\"\>", 
+   ",", "\<\"ff\"\>", ",", "\<\"fk\"\>", ",", "\<\"GaussIndex\"\>", 
+   ",", "\<\"gi\"\>", ",", "\<\"GuassIntegrate\"\>", 
+   ",", "\<\"GuassPointsNatural\"\>", ",", "\<\"GuassPointsSpatial\"\>", 
+   ",", "\<\"GuassWeights\"\>", ",", "\<\"i\"\>", ",", "\<\"IDArray\"\>", 
+   ",", "\<\"IDMat\"\>", ",", "\<\"IDno\"\>", ",", "\<\"IEN\"\>", 
+   ",", "\<\"IENS\"\>", ",", "\<\"InitializationUState\"\>", 
+   ",", "\<\"InitializeFEM\"\>", ",", "\<\"inp\"\>", ",", "\<\"Inp2Mesh\"\>", 
+   ",", "\<\"integrationOrder\"\>", ",", "\<\"itr\"\>", ",", "\<\"j\"\>", 
+   ",", "\<\"jacobi\"\>", ",", "\<\"KMat\"\>", ",", "\<\"KMat$\"\>", 
+   ",", "\<\"L\"\>", ",", "\<\"L1\"\>", ",", "\<\"L2\"\>", 
+   ",", "\<\"Left1\"\>", ",", "\<\"listing\"\>", ",", "\<\"LoadEnd\"\>", 
+   ",", "\<\"LoadInc\"\>", ",", "\<\"LoadStep\"\>", ",", "\<\"LoadStt\"\>", 
+   ",", "\<\"M0\"\>", ",", "\<\"M1\"\>", ",", "\<\"MaterialProperty\"\>", 
+   ",", "\<\"MaxCellSize\"\>", ",", "\<\"MaxItr\"\>", ",", "\<\"mesh\"\>", 
+   ",", "\<\"MeshString\"\>", ",", "\<\"myByteCount\"\>", ",", "\<\"n\"\>", 
+   ",", "\<\"ndof\"\>", ",", "\<\"nel\"\>", ",", "\<\"nElTyp\"\>", 
+   ",", "\<\"nen\"\>", ",", "\<\"NetTrctn\"\>", ",", "\<\"NeumannBC\"\>", 
+   ",", "\<\"NeumannDof\"\>", ",", "\<\"NeumannPoints\"\>", 
+   ",", "\<\"NeumannVals\"\>", ",", "\<\"NewtonSolve\"\>", 
+   ",", "\<\"ngauss\"\>", ",", "\<\"NMat\"\>", ",", "\<\"nnp\"\>", 
+   ",", "\<\"NodeCoord\"\>", ",", "\<\"Nodes\"\>", ",", "\<\"NodeSttId\"\>", 
+   ",", "\<\"nsel\"\>", ",", "\<\"nsen\"\>", ",", "\<\"nsteps\"\>", 
+   ",", "\<\"OutEdge\"\>", ",", "\<\"ParallelResidual\"\>", 
+   ",", "\<\"ParallelStiffness\"\>", ",", "\<\"ParallelUpdateStates\"\>", 
+   ",", "\<\"PlotMeshBC\"\>", ",", "\<\"plt\"\>", ",", "\<\"PltPoints\"\>", 
+   ",", "\<\"PostProcess\"\>", ",", "\<\"PrintBB\"\>", ",", "\<\"PrintRB\"\>",
+    ",", "\<\"Q\"\>", ",", "\<\"r\"\>", ",", "\<\"RelaxFactor\"\>", 
+   ",", "\<\"Rit\"\>", ",", "\<\"RitBttm\"\>", ",", "\<\"rMat\"\>", 
+   ",", "\<\"rMat$\"\>", ",", "\<\"s\"\>", ",", "\<\"S\"\>", 
+   ",", "\<\"ShowBCs\"\>", ",", "\<\"ShowMesh\"\>", 
+   ",", "\<\"ShowNumbers\"\>", ",", "\<\"SolUd\"\>", ",", "\<\"SolUdMat\"\>", 
+   ",", "\<\"sol\[Epsilon]p\"\>", ",", "\<\"StepSize\"\>", 
+   ",", "\<\"stress\"\>", ",", "\<\"StressMat\"\>", ",", "\<\"StressMatf\"\>",
+    ",", "\<\"StressMatflocal\"\>", ",", "\<\"StressRecover\"\>", 
+   ",", "\<\"symbolName\"\>", ",", "\<\"Tangent\"\>", 
+   ",", "\<\"TimePeriod\"\>", ",", "\<\"tMat\"\>", ",", "\<\"tol\"\>", 
+   ",", "\<\"Tp\"\>", ",", "\<\"TracInd\"\>", ",", "\<\"tVec\"\>", 
+   ",", "\<\"udMat\"\>", ",", "\<\"UdMat\"\>", ",", "\<\"udsol\"\>", 
+   ",", "\<\"Ufvec\"\>", ",", "\<\"uMat\"\>", ",", "\<\"UMat\"\>", 
+   ",", "\<\"UMat$\"\>", ",", "\<\"UpdateStates\"\>", 
+   ",", "\<\"UpdateStrainStress\"\>", ",", "\<\"uVec\"\>", 
+   ",", "\<\"wfvec\"\>", ",", "\<\"wMat\"\>", ",", "\<\"x\"\>", 
+   ",", "\<\"X\"\>", ",", "\<\"x$\"\>", ",", "\<\"Y\"\>", 
+   ",", "\<\"\[ScriptI]\"\>", ",", "\<\"\[ScriptCapitalI]\"\>", 
+   ",", "\<\"\[ScriptCapitalI]f\"\>", ",", "\<\"\[ScriptCapitalI]k\"\>", 
+   ",", "\<\"\[ScriptCapitalI]r\"\>", ",", "\<\"\[ScriptM]\"\>", 
+   ",", "\<\"\[ScriptN]\"\>", ",", "\<\"\[DoubleStruckCapitalI]0\"\>", 
+   ",", "\<\"\[Alpha]\"\>", ",", "\<\"\[Beta]\"\>", ",", "\<\"\[Gamma]\"\>", 
+   ",", "\<\"\[CapitalDelta]\[Epsilon]plas\"\>", 
+   ",", "\<\"\[CapitalEpsilon]\"\>", ",", "\<\"\[Epsilon]0\"\>", 
+   ",", "\<\"\[Epsilon]dot0\"\>", ",", "\<\"\[Epsilon]plas\"\>", 
+   ",", "\<\"\[Epsilon]plasin\"\>", ",", "\<\"\[Epsilon]plasNew\"\>", 
+   ",", "\<\"\[CapitalKappa]\"\>", ",", "\<\"\[Lambda]\"\>", 
+   ",", "\<\"\[Mu]\"\>", ",", "\<\"\[Nu]\"\>", ",", "\<\"\[Xi]\"\>", 
+   ",", "\<\"\[Xi]$\"\>", ",", "\<\"\[Sigma]\"\>", 
+   ",", "\<\"\[Sigma]equiv\"\>", ",", "\<\"\[Sigma]in\"\>", 
+   ",", "\<\"\[Sigma]new\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.7967378530974493`*^9},
+ CellLabel->
+  "Out[830]=",ExpressionUUID->"6768193f-11b3-4342-9768-a47b0a56aca4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(", 
+   RowBox[{"myByteCount", "/@", 
+    RowBox[{
+     RowBox[{"Names", "[", "]"}], "[", 
+     RowBox[{"[", 
+      RowBox[{"2", ";;"}], "]"}], "]"}]}], ")"}], "[", 
+  RowBox[{"[", 
+   RowBox[{";;", ",", "1"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.796738142126191*^9, 3.796738180152337*^9}},
+ CellLabel->
+  "In[864]:=",ExpressionUUID->"11adccc7-e7d6-4ae2-a999-2377da4b7b56"],
+
+Cell[BoxData[
+ InterpretationBox[
+  TagBox[
+   FrameBox[GridBox[{
+      {
+       ItemBox[
+        TagBox[
+         RowBox[{"{", 
+          RowBox[{
+          "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           TemplateBox[{"53249"},
+            "OutputSizeLimit`Skeleton"], ",", "0.8203125`", ",", "0.5234375`",
+            ",", "0.5234375`", ",", "0.3671875`", ",", "0.5234375`", ",", 
+           "0.6015625`", ",", "0.3671875`", ",", "0.53125`", ",", "0.53125`", 
+           ",", "0.6875`", ",", "0.546875`", ",", "0.53125`", ",", "0.53125`",
+            ",", "0.6953125`", ",", "0.65625`", ",", "0.4765625`", ",", 
+           "0.4921875`", ",", "0.4921875`", ",", "28.6171875`", ",", "0.625`",
+            ",", "0.796875`", ",", "0.6484375`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "39.828125`", ",", "0.75`", ",", "0.3671875`", 
+           ",", "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`", ",", 
+           "0.3671875`", ",", "0.3671875`", ",", "0.3671875`"}], "}"}],
+         Short[#, 5]& ],
+        BaseStyle->{Deployed -> False},
+        StripOnInput->False]},
+      {GridBox[{
+         {
+          PaneBox[
+           TagBox[
+            TooltipBox[
+             StyleBox[
+              StyleBox[
+               DynamicBox[ToBoxes[
+                 FEPrivate`FrontEndResource[
+                 "FEStrings", "sizeBriefExplanation"], StandardForm],
+                ImageSizeCache->{58., {2., 8.}}],
+               StripOnInput->False,
+               DynamicUpdating->True,
+               LineSpacing->{1, 2},
+               LineIndent->0,
+               LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLText",
+              StripOnInput->False],
+             StyleBox[
+              DynamicBox[
+               ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeExplanation"], 
+                StandardForm]], DynamicUpdating -> True, LineIndent -> 0, 
+              LinebreakAdjustments -> {1., 100, 0, 0, 0}, 
+              LineSpacing -> {1, 2}, StripOnInput -> False]],
+            Annotation[#, 
+             Style[
+              Dynamic[
+               FEPrivate`FrontEndResource["FEStrings", "sizeExplanation"]], 
+              DynamicUpdating -> True, LineIndent -> 0, 
+              LinebreakAdjustments -> {1., 100, 0, 0, 0}, 
+              LineSpacing -> {1, 2}], "Tooltip"]& ],
+           Alignment->Center,
+           BaselinePosition->Baseline,
+           ImageSize->{Automatic, {25, Full}}], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowLess"], 
+                StandardForm],
+               ImageSizeCache->{50., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowLess"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, {25, Full}}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           
+           ButtonFunction:>OutputSizeLimit`ButtonFunction[
+            OutputSizeLimit`Defer, 864, 33004633137236832476, 5/2],
+           Enabled->True,
+           Evaluator->Automatic,
+           Method->"Queued"], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowMore"], 
+                StandardForm],
+               ImageSizeCache->{56., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowMore"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, {25, Full}}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           
+           ButtonFunction:>OutputSizeLimit`ButtonFunction[
+            OutputSizeLimit`Defer, 864, 33004633137236832476, 5 2],
+           Enabled->True,
+           Evaluator->Automatic,
+           Method->"Queued"], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowAll"], 
+                StandardForm],
+               ImageSizeCache->{42., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowAll"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, {25, Full}}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           
+           ButtonFunction:>OutputSizeLimit`ButtonFunction[
+            OutputSizeLimit`Defer, 864, 33004633137236832476, Infinity],
+           Enabled->True,
+           Evaluator->Automatic,
+           Method->"Queued"], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeChangeLimit"], 
+                StandardForm],
+               ImageSizeCache->{74., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeChangeLimit"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True,
+              LineSpacing->{1, 2},
+              LineIndent->0,
+              LinebreakAdjustments->{1., 100, 0, 0, 0}], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, {25, Full}}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           ButtonFunction:>FrontEndExecute[{
+              FrontEnd`SetOptions[
+              FrontEnd`$FrontEnd, 
+               FrontEnd`PreferencesSettings -> {"Page" -> "Advanced"}], 
+              FrontEnd`FrontEndToken["PreferencesDialog"]}],
+           Evaluator->None,
+           Method->"Preemptive"]}
+        },
+        AutoDelete->False,
+        FrameStyle->GrayLevel[0.85],
+        GridBoxDividers->{"Columns" -> {False, {True}}},
+        GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+        GridBoxSpacings->{"Columns" -> {{2}}}]}
+     },
+     DefaultBaseStyle->"Column",
+     GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+     GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+     GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{1.}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.5599999999999999]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], 
+         Offset[1.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}],
+    BaseStyle->"OutputSizeLimit",
+    FrameMargins->{{12, 12}, {0, 15}},
+    FrameStyle->GrayLevel[0.85],
+    RoundingRadius->5,
+    StripOnInput->False],
+   Deploy,
+   DefaultBaseStyle->"Deploy"],
+  If[33004633137236832476 === $SessionID, 
+   Out[864], Message[
+     MessageName[Syntax, "noinfoker"]]; Missing["NotAvailable"]; 
+   Null]]], "Output",
+ CellChangeTimes->{
+  3.796737913878717*^9, {3.796738153455554*^9, 3.796738182607079*^9}},
+ CellLabel->
+  "Out[864]=",ExpressionUUID->"4c106486-2b3c-40b6-8f15-1dcf58f08c2d"]
+}, Open  ]],
+
+Cell[BoxData["\"\<L2\>\""], "Input",ExpressionUUID->"d9586e47-c355-4410-9621-13e7e173a1c8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Names", "[", "]"}], "[", 
+  RowBox[{"[", "1", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.796737862068714*^9, 3.7967378675065727`*^9}, {
+  3.796737923685834*^9, 3.796737941388556*^9}, {3.796737991361253*^9, 
+  3.7967379947755537`*^9}},
+ CellLabel->
+  "In[838]:=",ExpressionUUID->"9ea27322-5e8a-40e4-975e-c9d1f72a2875"],
+
+Cell[BoxData["ResourceFunctionHelpers`LinearCombination`"], "Input",
+ CellChangeTimes->{{3.796737998094244*^9, 3.7967380050827093`*^9}},
+ EmphasizeSyntaxErrors->True,
+ CellLabel->"",ExpressionUUID->"66d9ec0c-cd69-4b93-8ab2-375e9f6e6562"],
+
+Cell[BoxData[
+ RowBox[{"Missing", "[", 
+  RowBox[{"\<\"UnknownSymbol\"\>", 
+   ",", "\<\"ResourceFunctionHelpers`LinearCombination`\"\>"}], 
+  "]"}]], "Output",
+ CellChangeTimes->{3.796738001628666*^9},
+ CellLabel->
+  "Out[839]=",ExpressionUUID->"a402736b-a6e8-4efd-b5ca-176eaa60ab65"],
+
+Cell[BoxData["%"], "Input",
+ CellChangeTimes->{3.7967388371574917`*^9},
+ CellLabel->"",ExpressionUUID->"dabc29ce-0ae9-4bf1-83b8-a7caa56bbbbe"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"myByteCount", "[", "symbolName_String", "]"}], ":=", 
+    RowBox[{"Replace", "[", 
+     RowBox[{
+      RowBox[{"ToHeldExpression", "[", "symbolName", "]"}], ",", 
+      RowBox[{
+       RowBox[{"Hold", "[", "x__", "]"}], "\[RuleDelayed]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"MemberQ", "[", 
+          RowBox[{
+           RowBox[{"Attributes", "[", "x", "]"}], ",", 
+           RowBox[{"Protected", "|", "ReadProtected"}]}], "]"}], ",", 
+         RowBox[{"Sequence", "@@", 
+          RowBox[{"{", "}"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            FractionBox["1", "1024."], 
+            RowBox[{"ByteCount", "[", 
+             RowBox[{"Through", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                "OwnValues", ",", "DownValues", ",", "UpValues", ",", 
+                 "SubValues", ",", "DefaultValues", ",", "FormatValues", ",", 
+                 "NValues"}], "}"}], "[", 
+               RowBox[{
+                RowBox[{"Unevaluated", "@", "x"}], ",", 
+                RowBox[{"Sort", "\[Rule]", "False"}]}], "]"}], "]"}], "]"}]}],
+            ",", "symbolName"}], "}"}]}], "]"}]}]}], "]"}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"listing", "=", 
+     RowBox[{"myByteCount", "/@", 
+      RowBox[{
+       RowBox[{"Names", "[", "]"}], "[", 
+       RowBox[{"[", 
+        RowBox[{"2", ";;"}], "]"}], "]"}]}]}], "}"}], ",", 
+   RowBox[{"Labeled", "[", 
+    RowBox[{
+     RowBox[{"Grid", "[", 
+      RowBox[{
+       RowBox[{"Reverse", "@", 
+        RowBox[{"Take", "[", 
+         RowBox[{
+          RowBox[{"Sort", "[", "listing", "]"}], ",", 
+          RowBox[{"-", "200"}]}], "]"}]}], ",", 
+       RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+       RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}], ",", 
+     RowBox[{"Column", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Style", "[", 
+          RowBox[{
+          "\"\<ByteCount for symbols without attributes Protected and \
+ReadProtected in all contexts\>\"", ",", "16", ",", 
+           RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}]}], "]"}], ",", 
+         RowBox[{"Style", "[", 
+          RowBox[{
+           RowBox[{"Row", "@", 
+            RowBox[{"{", 
+             RowBox[{"\"\<Total: \>\"", ",", 
+              RowBox[{"Total", "[", 
+               RowBox[{"listing", "[", 
+                RowBox[{"[", 
+                 RowBox[{"All", ",", "1"}], "]"}], "]"}], "]"}], ",", 
+              "\"\< bytes for \>\"", ",", 
+              RowBox[{"Length", "[", "listing", "]"}], ",", 
+              "\"\< symbols\>\""}], "}"}]}], ",", "Bold"}], "]"}]}], "}"}], 
+       ",", "Center", ",", "1.5"}], "]"}], ",", "Top"}], "]"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.796737706801161*^9, 3.796737706803906*^9}, 
+   3.7967379521949453`*^9, {3.796738026554367*^9, 3.7967380268402987`*^9}, {
+   3.7967380603968773`*^9, 3.796738062282825*^9}},
+ CellLabel->
+  "In[1062]:=",ExpressionUUID->"516230cc-1ee3-4e7f-9723-0f82f968b6b9"],
+
+Cell[BoxData[
+ TemplateBox[{TagBox[
+    GridBox[{{
+      "2487.453125`", "\"PacletManager`Services`Private`$pacletSiteData\""}, {
+      "1631.5234375`", "\"SpecialRegionsDump`SRPropRule\""}, {
+      "1217.3515625`", "\"System`DateCalendarsDump`EarthVSOPD\""}, {
+      "811.0625`", "\"PacletManager`Manager`Private`$basePathMap\""}, {
+      "811.03125`", "\"PacletManager`Manager`Private`$pathMap\""}, {
+      "471.984375`", 
+       "\"PacletManager`Collection`Private`$layoutPacletCollection\""}, {
+      "339.40625`", "\"System`Convert`TeXFormDump`maketex\""}, {
+      "269.015625`", "\"System`Convert`MathMLDump`remapPlane1Characters\""}, {
+      "237.3515625`", 
+       "\"PacletManager`LayoutDocsCollection`Private`$layoutDocsCollection\""}\
+, {"230.9765625`", 
+       "\"NDSolve`FEM`MeshQualityEstimatorsDump`elementVolumeFunction\""}, {
+      "214.71875`", "\"System`DateCalendarsDump`col2\""}, {
+      "214.71875`", "\"System`DateCalendarsDump`col1\""}, {
+      "214.65625`", "\"System`DateCalendarsDump`col3\""}, {
+      "210.921875`", "\"System`Convert`MathMLDump`SMMLToBoxes\""}, {
+      "209.1171875`", "\"System`Convert`MathMLDump`BoxesToSMML\""}, {
+      "208.5234375`", 
+       "\"Interpreter`Transform`PackagePrivate`transformType\""}, {
+      "193.578125`", "\"DynamicDump`ControlToBoxes\""}, {
+      "193.296875`", "\"Manipulate`Dump`parameterToControls\""}, {
+      "190.484375`", "\"Statistics`SurvivalModelFitDump`iSMProperty\""}, {
+      "185.125`", "\"System`DateCalendarsDump`LunarPositionX\""}, {
+      "170.6484375`", "\"FileFormatDump`$FILEFORMATMATRIX\""}, {
+      "139.859375`", "\"PersistenceLocations`Dump`$icons\""}, {
+      "124.4375`", "\"System`Convert`TeXFormDump`$TeXReplacements\""}, {
+      "121.3671875`", "\"System`Convert`MathMLDump`optionOfBoxQ\""}, {
+      "121.`", "\"System`Convert`HTMLDump`htmlsave\""}, {
+      "120.234375`", "\"System`Convert`MLStringDataDump`$MathMLEntities\""}, {
+      "108.3125`", "\"System`Convert`MathMLDump`attributeOfTagQ\""}, {
+      "106.8515625`", 
+       "\"System`Convert`MLStringDataDump`$UpdatedMathMLEntities\""}, {
+      "106.015625`", "\"SpecialRegionsDump`CylinderParamAll\""}, {
+      "101.7890625`", "\"System`Convert`MLStringDataDump`$HTMLEntities\""}, {
+      "99.828125`", "\"Image`InteractiveDump`oDynamicImage\""}, {
+      "98.84375`", "\"System`Convert`MLStringDataDump`$MathML1Entities\""}, {
+      "95.3984375`", 
+       "\"System`Convert`MLStringDataDump`$UnicodeToMathML2Entities\""}, {
+      "94.7109375`", 
+       "\"PacletManager`Collection`Private`$userPacletCollection\""}, {
+      "93.265625`", 
+       "\"NDSolve`FEM`MeshQualityEstimatorsDump`HexahedronQualityUnknown\""}, \
+{"92.015625`", "\"SymbolicTensors`SymbolicTensorsDump`TensorExpandRule\""}, {
+      "90.3046875`", "\"System`SeriesDump`EllipPi3Z\""}, {
+      "88.421875`", 
+       "\"SymbolicTensors`SymbolicTensorsDump`$TensorExpandRules\""}, {
+      "84.9140625`", "\"System`SeriesDump`EllipFEZ\""}, {
+      "82.`", "\"Parallel`Parallel`Private`$distributedDefs\""}, {
+      "81.96875`", 
+       "\"EntityFramework`General`Private`iGeneralEntityValue\""}, {
+      "80.625`", "\"System`Convert`MathMLDump`characterReplacementRules\""}, {
+      "80.1328125`", "\"Legending`LegendDump`legendLayout\""}, {
+      "77.59375`", "\"PacletManager`Package`$managerData\""}, {
+      "76.546875`", 
+       "\"System`Convert`MLStringDataDump`$HTMLBasicEntities\""}, {
+      "76.109375`", "\"System`ConvertersDump`$uppercasedFormatMapping\""}, {
+      "74.1484375`", "\"System`Dump`ParameterValidation`AssumedInSpec\""}, {
+      "74.0078125`", 
+       "\"System`Convert`MLStringDataDump`$UnicodeToMathML1Entities\""}, {
+      "73.734375`", "\"SpecialRegionsDump`ConeParamAll\""}, {
+      "73.5625`", "\"CloudObject`Private`validateDocGenArg\""}, {
+      "71.8125`", 
+       "\"EntityFramework`EntityStore`Private`iGetEntityStoreData\""}, {
+      "69.3359375`", "\"Legending`LegendDump`iColorGradientLegend\""}, {
+      "68.90625`", "\"System`DateStringDump`convertDateStringForms\""}, {
+      "67.015625`", "\"EntityFramework`Caching`Private`$memoryCache\""}, {
+      "64.53125`", "\"NDSolve`FEM`MeshQualityEstimatorsDump`source\""}, {
+      "64.2890625`", "\"System`SeriesDump`CoefListCN0\""}, {
+      "63.3125`", "\"System`ConvertersDump`FormatMappings\""}, {
+      "62.5078125`", "\"System`SeriesDump`CoefListSN0\""}, {
+      "61.7578125`", "\"System`DateCalendarsDump`MonthBlueMoons\""}, {
+      "61.7578125`", "\"SpecialRegionsDump`outerdist\""}, {
+      "60.90625`", "\"L2\""}, {"60.90625`", "\"L1\""}, {
+      "60.34375`", 
+       "\"System`Convert`MLStringDataDump`$UnicodeToApproximants\""}, {
+      "60.125`", "\"System`SeriesDump`CoefListCN1\""}, {
+      "60.015625`", "\"System`SeriesDump`CoefListDN1\""}, {
+      "59.84375`", "\"System`Dump`ParameterValidation`ExplicitlyInSpec\""}, {
+      "59.8359375`", "\"System`Convert`TeXDump`texsave\""}, {
+      "59.5859375`", "\"Legending`LegendDump`plotLegendParser\""}, {
+      "59.0546875`", "\"System`SeriesDump`PolyGamAll\""}, {
+      "57.28125`", "\"Legending`LegendDump`iFixedSwatchLegend\""}, {
+      "56.203125`", "\"Legending`LegendDump`assembleLegendContainer\""}, {
+      "55.09375`", "\"DynamicDump`ControlToExpression\""}, {
+      "54.21875`", "\"CloudObject`Private`bannerImgr\""}, {
+      "54.1640625`", "\"System`Dump`defaultPacletIcon\""}, {
+      "53.84375`", "\"System`SeriesDump`CoefListJacAm1\""}, {
+      "53.4921875`", 
+       "\"EntityFramework`DefaultEntity`Private`iDefaultEntityValueUsingCache\
+\""}, {"53.40625`", "\"Image`CompositionOperationsDump`oWordCloud\""}, {
+      "52.390625`", "\"System`SeriesDump`CoefListJacAm0\""}, {
+      "52.3828125`", "\"System`SeriesDump`CoefListDN0\""}, {
+      "52.296875`", "\"System`SeriesDump`CoefListSN1\""}, {
+      "51.9453125`", "\"CloudObject`Private`$httpRules\""}, {
+      "51.5546875`", 
+       "\"System`Convert`MathMLDump`attributeOfTagIsLiftableQ\""}, {
+      "51.421875`", "\"System`Dump`AddCache\""}, {
+      "51.390625`", "\"System`Convert`NotebookMLDump`toSymbolicNBML\""}, {
+      "50.96875`", "\"System`Convert`XMLDump`checkXML\""}, {
+      "50.8515625`", "\"System`NSolveDump`nsolve\""}, {
+      "50.8046875`", "\"Manipulate`Dump`toPeriodicFunction\""}, {
+      "50.5859375`", 
+       "\"GeneralUtilities`Formatting`PackagePrivate`fullbox\""}, {
+      "48.8046875`", "\"Interpreter`PackageScope`$IPv6Address\""}, {
+      "48.09375`", "\"System`Convert`NotebookMLDump`fromSymbolicNBML\""}, {
+      "47.8828125`", "\"Legending`LegendDump`iLegendConstructer\""}, {
+      "47.2734375`", "\"Interpreter`PackageScope`$CountryCodes\""}, {
+      "46.8359375`", "\"System`Dump`anpts\""}, {
+      "46.5703125`", "\"Semantic`PLIDump`processSubPattern\""}, {
+      "46.3046875`", "\"System`Dump`ParameterValidation`SpecAssumptions\""}, {
+      "46.015625`", "\"Manipulate`Dump`updateOneVar\""}, {
+      "45.046875`", "\"System`Dump`RemoveCache\""}, {
+      "44.4375`", "\"FittedModels`FittedModelDump`iLinearProps\""}, {
+      "44.1015625`", "\"Explore`ExploreDump`MakeExploreBoxes\""}, {
+      "42.21875`", "\"GeneralUtilities`LayerPlot\""}, {
+      "42.0390625`", "\"System`ConvertersDump`import\""}, {
+      "41.9765625`", "\"Image`CompositionOperationsDump`iImageCollage\""}, {
+      "41.8828125`", "\"System`SeriesDump`LegQAll\""}, {
+      "41.765625`", "\"Legending`LegendDump`legendNames\""}, {
+      "41.4609375`", "\"Image`InteractiveDump`HorizontalZoombarBox\""}, {
+      "41.3984375`", "\"Image`InteractiveDump`VerticalZoombarBox\""}, {
+      "39.9140625`", "\"System`DateCalendarsDump`sigmamoontime\""}, {
+      "39.828125`", "\"System`FunctionZerosDump`$ZetaZeroMarker\""}, {
+      "39.703125`", "\"Legending`LegendDump`iColorBandLegend\""}, {
+      "39.5625`", "\"System`ConvertersDump`export\""}, {
+      "39.421875`", "\"Manipulate`Dump`expandParameterShorthands\""}, {
+      "38.9765625`", "\"System`KelvinDump`AsymptoticKelvinKerKei\""}, {
+      "38.6484375`", "\"System`DateCalendarsDump`MyDigitsGregorianL\""}, {
+      "38.578125`", 
+       "\"Interpreter`InternalColor`PackagePrivate`$W3CNamedColors\""}, {
+      "38.5703125`", "\"System`SeriesDump`EllipPi3M\""}, {
+      "38.3671875`", 
+       "\"System`Convert`MathMLDump`transformBoxesForPostProcess\""}, {
+      "38.2109375`", "\"Manipulate`Dump`addControls\""}, {
+      "38.1796875`", "\"System`ConvertersDump`ImportTest\""}, {
+      "38.1640625`", "\"System`Dump`documentationButtonGraphicsBox\""}, {
+      "38.0859375`", "\"System`InfoDump`formatRow\""}, {
+      "37.9765625`", "\"WolframAlphaClient`Private`doNewFastParse\""}, {
+      "37.7578125`", "\"WolframAlphaClient`Private`formatAssumption\""}, {
+      "37.515625`", 
+       "\"System`Convert`MathMLDump`convertAttributeToOption\""}, {
+      "37.4375`", 
+       "\"Interpreter`Transform`PackagePrivate`$RestrictionRules\""}, {
+      "36.59375`", "\"System`DateCalendarsDump`interval\""}, {
+      "36.3203125`", "\"System`DateCalendarsDump`PATransformation0\""}, {
+      "36.3125`", "\"CloudObject`Private`loginDialog\""}, {
+      "36.2578125`", "\"SpecialRegionsDump`CylinderParamBoundary\""}, {
+      "36.1484375`", "\"WrappersDump`WrapperToBoxes\""}, {
+      "35.4765625`", "\"CURLLink`CURLOptionQ\""}, {
+      "35.390625`", "\"Semantic`PLIDump`ValidateGrammarRulePattern\""}, {
+      "35.140625`", "\"System`ConvertersDump`ExtensionMappings\""}, {
+      "34.7578125`", "\"System`SeriesDump`PolyLogAll\""}, {
+      "34.3125`", "\"System`SeriesDump`IndexAsymptoticLaguerreL\""}, {
+      "34.1796875`", "\"Image`CompositionOperationsDump`buildWord\""}, {
+      "34.0859375`", "\"System`SeriesDump`BesYAll\""}, {
+      "33.6171875`", "\"System`SeriesDump`ModularFunction\""}, {
+      "33.59375`", "\"BoxForm`MakeTemplateBoxRules\""}, {
+      "33.4609375`", "\"TextSearch`Utils`PackagePrivate`indent\""}, {
+      "33.3359375`", "\"System`SeriesDump`HermBig\""}, {
+      "33.2734375`", "\"Manipulate`Dump`pointListToFunction\""}, {
+      "33.03125`", "\"System`DateStringDump`toLocale\""}, {
+      "32.921875`", "\"System`SeriesDump`ProdLogAll\""}, {
+      "32.8125`", 
+       "\"System`Convert`MLStringDataDump`$UnicodeToHTML4Entities\""}, {
+      "32.734375`", "\"System`Convert`MLStringDataDump`$8BitUnchanged\""}, {
+      "32.4921875`", 
+       "\"NDSolve`FEM`MeshQualityEstimatorsDump`TetrahedronQualityPGH\""}, {
+      "32.375`", "\"System`RealRootsDump`ExpLogNDRootIsol\""}, {
+      "32.`", "\"FittedModels`FittedModelDump`iGLMProps\""}, {
+      "31.9296875`", 
+       "\"NDSolve`FEM`FEMDiscretizationDump`convertToStandardPDECoeffForm\""},\
+ {"31.734375`", "\"Image`ImageDump`iTransformPixelCoordinates\""}, {
+      "31.3671875`", "\"Language`SequencesDump`makeSplits\""}, {
+      "31.2421875`", "\"Parallel`Static`$SystemContexts\""}, {
+      "30.8359375`", "\"SpecialRegionsDump`outernearest\""}, {
+      "30.8125`", "\"FittedModels`FittedModelDump`iNLMProps\""}, {
+      "30.6796875`", "\"System`SeriesDump`KelvinKerKei\""}, {
+      "30.5859375`", 
+       "\"DocumentationSearch`Skeletonizer`Private`skeletonizerClasses\""}, {
+      "30.25`", "\"Image`InteractiveDump`iDynamicImage\""}, {
+      "30.0703125`", "\"System`SeriesDump`CoeffG32\""}, {
+      "29.96875`", 
+       "\"System`Convert`MathMLDump`convertOptionToAttribute\""}, {
+      "29.9296875`", "\"System`SeriesDump`CoeffG43\""}, {
+      "29.8515625`", "\"MailReceiver`Private`getMailReceiverValue\""}, {
+      "29.46875`", "\"System`DateStringDump`convertToICUForms\""}, {
+      "29.0234375`", 
+       "\"WolframAlphaClient`Private`AlphaQueryPreferences\""}, {
+      "28.7578125`", "\"CURLLink`HTTP`Private`setStandardOptions\""}, {
+      "28.734375`", "\"ExternalService`URIToolsDump`entityRules\""}, {
+      "28.6171875`", "\"Templating`$XMLTemplateOptions\""}, {
+      "28.59375`", "\"System`InformationDump`getInformation\""}, {
+      "28.4375`", "\"System`SeriesDump`JacobXY\""}, {
+      "27.765625`", "\"System`SeriesDump`INFINITYhyper2F1\""}, {
+      "27.765625`", "\"Image`CompositionOperationsDump`iWordCloud\""}, {
+      "27.328125`", "\"System`DateCalendarsDump`calendarDateToNumber\""}, {
+      "27.0859375`", "\"System`Convert`MathMLDump`ContentTagQ\""}, {
+      "27.015625`", "\"Legending`LegendDump`renderNamedElements\""}, {
+      "26.8359375`", "\"SpecialRegionsDump`ConeParamBoundary\""}, {
+      "26.625`", 
+       "\"Templating`PanelLanguage`PackagePrivate`toMediaQuery\""}, {
+      "26.2421875`", "\"CURLLink`$CURLInfo\""}, {
+      "26.1640625`", "\"System`Dump`uninstallButtonRasterBox\""}, {
+      "26.1640625`", "\"System`Dump`loadNowButtonGraphicsBox\""}, {
+      "26.1640625`", "\"System`Dump`loadedButtonGraphicsBox\""}, {
+      "26.1015625`", "\"System`Dump`loadNowButtonDisabledGraphicsBox\""}, {
+      "26.046875`", "\"System`Dump`CommonPatterns`SSS\""}, {
+      "25.953125`", "\"Parallel`Preferences`prefs\""}, {
+      "25.8359375`", "\"System`InfoDump`formatTabContent\""}, {
+      "25.7890625`", 
+       "\"System`SeriesDump`AsymptoticMeijerGSeriesExpInfinity\""}, {
+      "25.59375`", "\"System`RealRootsDump`sincoselim\""}, {
+      "25.4609375`", "\"System`RealRootsDump`ElemRootIsolIrred\""}, {
+      "25.1796875`", 
+       "\"System`DateCalendarsDump`DigitsToNumberGregorian\""}, {
+      "25.140625`", "\"DocumentationSearch`Private`englishSymbols\""}, {
+      "25.015625`", "\"StringPattern`Dump`rules\""}, {
+      "24.953125`", "\"System`SeriesDump`EllipEM\""}, {
+      "24.859375`", "\"System`Convert`XMLDump`symbolicToStringXML\""}, {
+      "24.734375`", "\"GridDump`GridToBoxes\""}, {
+      "24.703125`", "\"SpecialRegionsDump`innerdist\""}, {
+      "24.65625`", "\"CloudObject`Private`exportFormToString\""}, {
+      "24.6171875`", 
+       "\"System`Convert`MLStringDataDump`$PrivateCharacterToUnicodeEntities\"\
+"}, {"24.59375`", "\"Manipulate`Dump`parameterToControllerLink\""}, {
+      "24.546875`", "\"SearchDocumentation\""}, {
+      "24.5078125`", 
+       "\"EntityFramework`EntityStore`Private`evaluateStoreEP\""}, {
+      "24.4765625`", "\"System`SeriesDump`CoeffG54\""}, {
+      "24.46875`", "\"GeneralUtilities`MacroRules\""}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxFrame -> {"ColumnsIndexed" -> {{{1, -1}, {1, -1}} -> True}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"],TagBox[
+    GridBox[{{
+       StyleBox[
+       "\"ByteCount for symbols without attributes Protected and \
+ReadProtected in all contexts\"", 16, FontFamily -> "Times", StripOnInput -> 
+        False]}, {
+       StyleBox[
+        TemplateBox[{
+         "\"Total: \"", "68686.0712890625`", "\" bytes for \"", "53878", 
+          "\" symbols\""}, "RowDefault"], Bold, StripOnInput -> False]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Center}}}, DefaultBaseStyle -> 
+     "Column", 
+     GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+      GridBoxSpacings -> {"Columns" -> {{Automatic}}, "Rows" -> {{1.5}}}], 
+    "Column"]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}, {
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {2, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", #2, ",", "Top"}], "]"}]& )]], "Output",
+ CellChangeTimes->{3.796737711956106*^9, 3.7967379549307957`*^9, 
+  3.79673802889324*^9, 3.79673806622715*^9, 3.796738099663342*^9, 
+  3.796738830480798*^9},
+ CellLabel->
+  "Out[1063]=",ExpressionUUID->"935c456b-aee0-4559-bd5c-ddadeff10a53"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"939.6875`", "/", "36"}]], "Input",
+ CellChangeTimes->{{3.79673715559562*^9, 3.7967371566030083`*^9}},
+ CellLabel->
+  "In[473]:=",ExpressionUUID->"78a825f1-0130-4491-ae6a-b836e7fe7e61"],
+
+Cell[BoxData["26.102430555555554`"], "Output",
+ CellChangeTimes->{3.796737156854766*^9},
+ CellLabel->
+  "Out[473]=",ExpressionUUID->"5d5263e3-a528-4fd1-9567-8fbafbb50130"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "System`RealRootsDump`X$274250"}]], "Input",
+ CellChangeTimes->{{3.79673696174389*^9, 3.7967369654229813`*^9}},
+ CellLabel->
+  "In[467]:=",ExpressionUUID->"142ad90d-0bef-4c0d-8ea1-2c34c547a88c"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = True, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"System`RealRootsDump`X$274250\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False, False, False, False, 
+                False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"System`RealRootsDump`X$274250\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->6], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"],
+               ImageSizeCache->{10., {2., 8.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"],
+               ImageSizeCache->{10., {2., 8.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"System`RealRootsDump`X$274250\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"]], True->
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[
+   Association[
+   "ObjectType" -> "Symbol", "Usage" -> "System`RealRootsDump`X$274250", 
+    "Documentation" -> None, "OwnValues" -> None, "UpValues" -> None, 
+    "DownValues" -> None, "SubValues" -> None, "DefaultValues" -> None, 
+    "NValues" -> None, "FormatValues" -> None, "Options" -> None, 
+    "Attributes" -> {}, "FullName" -> "System`RealRootsDump`X$274250"], 
+   False]]], "Output",
+ CellChangeTimes->{{3.7967369592826233`*^9, 3.796736966078672*^9}, 
+   3.796737063070971*^9},
+ CellLabel->
+  "Out[467]=",ExpressionUUID->"8ec72e3f-fba8-417a-9f1f-d993fc6b469e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Names", "[", "\"\<System`RealRootsDump`*\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.796736911644001*^9, 3.7967369345984364`*^9}},
+ CellLabel->
+  "In[468]:=",ExpressionUUID->"c457a42f-03b0-40ad-9b2a-acb80b12bc14"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"System`RealRootsDump`a\"\>", 
+   ",", "\<\"System`RealRootsDump`aa\"\>", 
+   ",", "\<\"System`RealRootsDump`aa$\"\>", 
+   ",", "\<\"System`RealRootsDump`addexcsols\"\>", 
+   ",", "\<\"System`RealRootsDump`allposQ\"\>", 
+   ",", "\<\"System`RealRootsDump`ans\"\>", 
+   ",", "\<\"System`RealRootsDump`ans$\"\>", 
+   ",", "\<\"System`RealRootsDump`args\"\>", 
+   ",", "\<\"System`RealRootsDump`args$\"\>", 
+   ",", "\<\"System`RealRootsDump`a$\"\>", 
+   ",", "\<\"System`RealRootsDump`b\"\>", 
+   ",", "\<\"System`RealRootsDump`bb\"\>", 
+   ",", "\<\"System`RealRootsDump`bb$\"\>", 
+   ",", "\<\"System`RealRootsDump`bds\"\>", 
+   ",", "\<\"System`RealRootsDump`bds$\"\>", 
+   ",", "\<\"System`RealRootsDump`b$\"\>", 
+   ",", "\<\"System`RealRootsDump`c\"\>", 
+   ",", "\<\"System`RealRootsDump`cr\"\>", 
+   ",", "\<\"System`RealRootsDump`cr$\"\>", 
+   ",", "\<\"System`RealRootsDump`csint\"\>", 
+   ",", "\<\"System`RealRootsDump`c$\"\>", 
+   ",", "\<\"System`RealRootsDump`d\"\>", 
+   ",", "\<\"System`RealRootsDump`DAssert\"\>", 
+   ",", "\<\"System`RealRootsDump`dd\"\>", 
+   ",", "\<\"System`RealRootsDump`dd$\"\>", 
+   ",", "\<\"System`RealRootsDump`defptQ\"\>", 
+   ",", "\<\"System`RealRootsDump`den\"\>", 
+   ",", "\<\"System`RealRootsDump`dens\"\>", 
+   ",", "\<\"System`RealRootsDump`dens$\"\>", 
+   ",", "\<\"System`RealRootsDump`den$\"\>", 
+   ",", "\<\"System`RealRootsDump`dfl\"\>", 
+   ",", "\<\"System`RealRootsDump`dir\"\>", 
+   ",", "\<\"System`RealRootsDump`dom\"\>", 
+   ",", "\<\"System`RealRootsDump`dom$\"\>", 
+   ",", "\<\"System`RealRootsDump`DPrint\"\>", 
+   ",", "\<\"System`RealRootsDump`d$\"\>", 
+   ",", "\<\"System`RealRootsDump`e\"\>", 
+   ",", "\<\"System`RealRootsDump`e1\"\>", 
+   ",", "\<\"System`RealRootsDump`e1$\"\>", 
+   ",", "\<\"System`RealRootsDump`e2\"\>", 
+   ",", "\<\"System`RealRootsDump`e2$\"\>", 
+   ",", "\<\"System`RealRootsDump`e3\"\>", 
+   ",", "\<\"System`RealRootsDump`e3$\"\>", 
+   ",", "\<\"System`RealRootsDump`e4\"\>", 
+   ",", "\<\"System`RealRootsDump`e4$\"\>", 
+   ",", "\<\"System`RealRootsDump`e5\"\>", 
+   ",", "\<\"System`RealRootsDump`e5$\"\>", 
+   ",", "\<\"System`RealRootsDump`ee\"\>", 
+   ",", "\<\"System`RealRootsDump`ee$\"\>", 
+   ",", "\<\"System`RealRootsDump`ElemRootIsol\"\>", 
+   ",", "\<\"System`RealRootsDump`ElemRootIsolIrred\"\>", 
+   ",", "\<\"System`RealRootsDump`elemrts\"\>", 
+   ",", "\<\"System`RealRootsDump`elvars\"\>", 
+   ",", "\<\"System`RealRootsDump`epr\"\>", 
+   ",", "\<\"System`RealRootsDump`epr$\"\>", 
+   ",", "\<\"System`RealRootsDump`ERCache\"\>", 
+   ",", "\<\"System`RealRootsDump`ERCache$\"\>", 
+   ",", "\<\"System`RealRootsDump`ESign\"\>", 
+   ",", "\<\"System`RealRootsDump`ETower\"\>", 
+   ",", "\<\"System`RealRootsDump`ETowerArcTan\"\>", 
+   ",", "\<\"System`RealRootsDump`ETowerExp\"\>", 
+   ",", "\<\"System`RealRootsDump`ETowerInv\"\>", 
+   ",", "\<\"System`RealRootsDump`ETowerLog\"\>", 
+   ",", "\<\"System`RealRootsDump`ETowerPlus\"\>", 
+   ",", "\<\"System`RealRootsDump`ETowerTimes\"\>", 
+   ",", "\<\"System`RealRootsDump`ev\"\>", 
+   ",", "\<\"System`RealRootsDump`ev$\"\>", 
+   ",", "\<\"System`RealRootsDump`ExpLogNDRootIsol\"\>", 
+   ",", "\<\"System`RealRootsDump`e$\"\>", 
+   ",", "\<\"System`RealRootsDump`f\"\>", 
+   ",", "\<\"System`RealRootsDump`f0\"\>", 
+   ",", "\<\"System`RealRootsDump`f0$\"\>", 
+   ",", "\<\"System`RealRootsDump`fa\"\>", 
+   ",", "\<\"System`RealRootsDump`fac\"\>", 
+   ",", "\<\"System`RealRootsDump`fac$\"\>", 
+   ",", "\<\"System`RealRootsDump`fb\"\>", 
+   ",", "\<\"System`RealRootsDump`ff\"\>", 
+   ",", "\<\"System`RealRootsDump`ff$\"\>", 
+   ",", "\<\"System`RealRootsDump`findincrsol\"\>", 
+   ",", "\<\"System`RealRootsDump`FinLimit\"\>", 
+   ",", "\<\"System`RealRootsDump`FromETower\"\>", 
+   ",", "\<\"System`RealRootsDump`fs\"\>", 
+   ",", "\<\"System`RealRootsDump`fs$\"\>", 
+   ",", "\<\"System`RealRootsDump`fv\"\>", 
+   ",", "\<\"System`RealRootsDump`fv$\"\>", 
+   ",", "\<\"System`RealRootsDump`fx\"\>", 
+   ",", "\<\"System`RealRootsDump`fx$\"\>", 
+   ",", "\<\"System`RealRootsDump`g\"\>", 
+   ",", "\<\"System`RealRootsDump`gs\"\>", 
+   ",", "\<\"System`RealRootsDump`gv\"\>", 
+   ",", "\<\"System`RealRootsDump`gv$\"\>", 
+   ",", "\<\"System`RealRootsDump`gX\"\>", 
+   ",", "\<\"System`RealRootsDump`gX$\"\>", 
+   ",", "\<\"System`RealRootsDump`g$\"\>", 
+   ",", "\<\"System`RealRootsDump`highExponQ\"\>", 
+   ",", "\<\"System`RealRootsDump`hs\"\>", 
+   ",", "\<\"System`RealRootsDump`hX\"\>", 
+   ",", "\<\"System`RealRootsDump`hX$\"\>", 
+   ",", "\<\"System`RealRootsDump`i\"\>", 
+   ",", "\<\"System`RealRootsDump`idz\"\>", 
+   ",", "\<\"System`RealRootsDump`idz$\"\>", 
+   ",", "\<\"System`RealRootsDump`ielemrts\"\>", 
+   ",", "\<\"System`RealRootsDump`ii\"\>", 
+   ",", "\<\"System`RealRootsDump`ii$\"\>", 
+   ",", "\<\"System`RealRootsDump`inf\"\>", 
+   ",", "\<\"System`RealRootsDump`int\"\>", 
+   ",", "\<\"System`RealRootsDump`ints\"\>", 
+   ",", "\<\"System`RealRootsDump`int$\"\>", 
+   ",", "\<\"System`RealRootsDump`i$\"\>", 
+   ",", "\<\"System`RealRootsDump`k\"\>", 
+   ",", "\<\"System`RealRootsDump`k$\"\>", 
+   ",", "\<\"System`RealRootsDump`l\"\>", 
+   ",", "\<\"System`RealRootsDump`lb\"\>", 
+   ",", "\<\"System`RealRootsDump`lbound\"\>", 
+   ",", "\<\"System`RealRootsDump`lc\"\>", 
+   ",", "\<\"System`RealRootsDump`lc$\"\>", 
+   ",", "\<\"System`RealRootsDump`LimitOfSign\"\>", 
+   ",", "\<\"System`RealRootsDump`LimSign\"\>", 
+   ",", "\<\"System`RealRootsDump`logs\"\>", 
+   ",", "\<\"System`RealRootsDump`logs$\"\>", 
+   ",", "\<\"System`RealRootsDump`l$\"\>", 
+   ",", "\<\"System`RealRootsDump`m\"\>", 
+   ",", "\<\"System`RealRootsDump`makeELTR\"\>", 
+   ",", "\<\"System`RealRootsDump`MayBeZeroQ\"\>", 
+   ",", "\<\"System`RealRootsDump`md\"\>", 
+   ",", "\<\"System`RealRootsDump`md$\"\>", 
+   ",", "\<\"System`RealRootsDump`MultETowerSign\"\>", 
+   ",", "\<\"System`RealRootsDump`n\"\>", 
+   ",", "\<\"System`RealRootsDump`ndeg\"\>", 
+   ",", "\<\"System`RealRootsDump`ne\"\>", 
+   ",", "\<\"System`RealRootsDump`ne$\"\>", 
+   ",", "\<\"System`RealRootsDump`nonintQ\"\>", 
+   ",", "\<\"System`RealRootsDump`nzd\"\>", 
+   ",", "\<\"System`RealRootsDump`n$\"\>", 
+   ",", "\<\"System`RealRootsDump`opts\"\>", 
+   ",", "\<\"System`RealRootsDump`opts$\"\>", 
+   ",", "\<\"System`RealRootsDump`other\"\>", 
+   ",", "\<\"System`RealRootsDump`p\"\>", 
+   ",", "\<\"System`RealRootsDump`pa\"\>", 
+   ",", "\<\"System`RealRootsDump`PNonIntQ\"\>", 
+   ",", "\<\"System`RealRootsDump`pp\"\>", 
+   ",", "\<\"System`RealRootsDump`pp$\"\>", 
+   ",", "\<\"System`RealRootsDump`pr\"\>", 
+   ",", "\<\"System`RealRootsDump`prec\"\>", 
+   ",", "\<\"System`RealRootsDump`prec$\"\>", 
+   ",", "\<\"System`RealRootsDump`pr$\"\>", 
+   ",", "\<\"System`RealRootsDump`pts\"\>", 
+   ",", "\<\"System`RealRootsDump`pts$\"\>", 
+   ",", "\<\"System`RealRootsDump`q\"\>", 
+   ",", "\<\"System`RealRootsDump`q$\"\>", 
+   ",", "\<\"System`RealRootsDump`r\"\>", 
+   ",", "\<\"System`RealRootsDump`ratbetween\"\>", 
+   ",", "\<\"System`RealRootsDump`RealNumericQ\"\>", 
+   ",", "\<\"System`RealRootsDump`resundec\"\>", 
+   ",", "\<\"System`RealRootsDump`rint\"\>", 
+   ",", "\<\"System`RealRootsDump`rootinint\"\>", 
+   ",", "\<\"System`RealRootsDump`RPosit\"\>", 
+   ",", "\<\"System`RealRootsDump`rr\"\>", 
+   ",", "\<\"System`RealRootsDump`rr$\"\>", 
+   ",", "\<\"System`RealRootsDump`rt\"\>", 
+   ",", "\<\"System`RealRootsDump`rtbds\"\>", 
+   ",", "\<\"System`RealRootsDump`RTRExtraPrecision\"\>", 
+   ",", "\<\"System`RealRootsDump`rts\"\>", 
+   ",", "\<\"System`RealRootsDump`rts$\"\>", 
+   ",", "\<\"System`RealRootsDump`rt$\"\>", 
+   ",", "\<\"System`RealRootsDump`r$\"\>", 
+   ",", "\<\"System`RealRootsDump`s\"\>", 
+   ",", "\<\"System`RealRootsDump`s1\"\>", 
+   ",", "\<\"System`RealRootsDump`s2\"\>", 
+   ",", "\<\"System`RealRootsDump`sa\"\>", 
+   ",", "\<\"System`RealRootsDump`sa$\"\>", 
+   ",", "\<\"System`RealRootsDump`sb\"\>", 
+   ",", "\<\"System`RealRootsDump`sb$\"\>", 
+   ",", "\<\"System`RealRootsDump`sc\"\>", 
+   ",", "\<\"System`RealRootsDump`sca\"\>", 
+   ",", "\<\"System`RealRootsDump`sca$\"\>", 
+   ",", "\<\"System`RealRootsDump`scb\"\>", 
+   ",", "\<\"System`RealRootsDump`scb$\"\>", 
+   ",", "\<\"System`RealRootsDump`scl\"\>", 
+   ",", "\<\"System`RealRootsDump`scl$\"\>", 
+   ",", "\<\"System`RealRootsDump`scr\"\>", 
+   ",", "\<\"System`RealRootsDump`scr$\"\>", 
+   ",", "\<\"System`RealRootsDump`sc$\"\>", 
+   ",", "\<\"System`RealRootsDump`sgc\"\>", 
+   ",", "\<\"System`RealRootsDump`Sgc\"\>", 
+   ",", "\<\"System`RealRootsDump`sgc$\"\>", 
+   ",", "\<\"System`RealRootsDump`sgns\"\>", 
+   ",", "\<\"System`RealRootsDump`sincoselim\"\>", 
+   ",", "\<\"System`RealRootsDump`sl\"\>", 
+   ",", "\<\"System`RealRootsDump`sl$\"\>", 
+   ",", "\<\"System`RealRootsDump`sr\"\>", 
+   ",", "\<\"System`RealRootsDump`sRationalize\"\>", 
+   ",", "\<\"System`RealRootsDump`sr$\"\>", 
+   ",", "\<\"System`RealRootsDump`ss\"\>", 
+   ",", "\<\"System`RealRootsDump`stack\"\>", 
+   ",", "\<\"System`RealRootsDump`stack$\"\>", 
+   ",", "\<\"System`RealRootsDump`s$\"\>", 
+   ",", "\<\"System`RealRootsDump`t\"\>", 
+   ",", "\<\"System`RealRootsDump`t1\"\>", 
+   ",", "\<\"System`RealRootsDump`t2\"\>", 
+   ",", "\<\"System`RealRootsDump`tans\"\>", 
+   ",", "\<\"System`RealRootsDump`tansing\"\>", 
+   ",", "\<\"System`RealRootsDump`tans$\"\>", 
+   ",", "\<\"System`RealRootsDump`tmp\"\>", 
+   ",", "\<\"System`RealRootsDump`tmp$\"\>", 
+   ",", "\<\"System`RealRootsDump`ToETower\"\>", 
+   ",", "\<\"System`RealRootsDump`TRSign\"\>", 
+   ",", "\<\"System`RealRootsDump`t$\"\>", 
+   ",", "\<\"System`RealRootsDump`u\"\>", 
+   ",", "\<\"System`RealRootsDump`ub\"\>", 
+   ",", "\<\"System`RealRootsDump`undec\"\>", 
+   ",", "\<\"System`RealRootsDump`u$\"\>", 
+   ",", "\<\"System`RealRootsDump`v\"\>", 
+   ",", "\<\"System`RealRootsDump`V\"\>", 
+   ",", "\<\"System`RealRootsDump`v$\"\>", 
+   ",", "\<\"System`RealRootsDump`V$\"\>", 
+   ",", "\<\"System`RealRootsDump`x\"\>", 
+   ",", "\<\"System`RealRootsDump`X\"\>", 
+   ",", "\<\"System`RealRootsDump`X$\"\>", 
+   ",", "\<\"System`RealRootsDump`X$274250\"\>", 
+   ",", "\<\"System`RealRootsDump`y\"\>", 
+   ",", "\<\"System`RealRootsDump`$ERUseIntervalRoots\"\>", 
+   ",", "\<\"System`RealRootsDump`$HasExceptionsPattern\"\>", 
+   ",", "\<\"System`RealRootsDump`$InertToSystem\"\>", 
+   ",", "\<\"System`RealRootsDump`$MaxTanEquations\"\>", 
+   ",", "\<\"System`RealRootsDump`$RandomPositiveNums\"\>", 
+   ",", "\<\"System`RealRootsDump`$RandomRealNums\"\>", 
+   ",", "\<\"System`RealRootsDump`$RealRootDebug\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.79673691956196*^9, 3.796736934965436*^9}, 
+   3.7967370675950813`*^9},
+ CellLabel->
+  "Out[468]=",ExpressionUUID->"1d38e5aa-b022-481e-a4fd-a35e38fb66e7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["System`RealRootsDump`X$274250"], "Input",
+ CellChangeTimes->{3.79673708781096*^9},
+ CellLabel->
+  "In[470]:=",ExpressionUUID->"1c984d14-d189-4099-bdf2-d0dd605cf0ec"],
+
+Cell[BoxData["System`RealRootsDump`X$274250"], "Output",
+ CellChangeTimes->{{3.7967370836851587`*^9, 3.796737085995028*^9}},
+ CellLabel->
+  "Out[470]=",ExpressionUUID->"ca06695f-c35e-4d4e-9401-b8b025f167fc"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Names", "[", 
+  RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.7967364197433577`*^9, 3.796736421749648*^9}},
+ CellLabel->
+  "In[372]:=",ExpressionUUID->"06866298-6d6f-4e7e-ba84-86fe2f5f7c6b"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"abt\"\>", ",", "\<\"aMat\"\>", ",", "\<\"ApplyTraction\"\>", 
+   ",", "\<\"args\"\>", ",", "\<\"AUdMat\"\>", ",", "\<\"B\"\>", 
+   ",", "\<\"BMat\"\>", ",", "\<\"BMat$\"\>", ",", "\<\"Bttm\"\>", 
+   ",", "\<\"BttmRit\"\>", ",", "\<\"CalAUdMat\"\>", ",", "\<\"CalEE\"\>", 
+   ",", "\<\"CalKMat\"\>", ",", "\<\"CalrMat\"\>", ",", "\<\"CalState\"\>", 
+   ",", "\<\"ComputeEE\"\>", ",", "\<\"ComputeResidualMatrixU\"\>", 
+   ",", "\<\"ComputeStiffnessMatrixU\"\>", 
+   ",", "\<\"ComputeStressProjection\"\>", ",", "\<\"coord\"\>", 
+   ",", "\<\"Coords\"\>", ",", "\<\"coord$\"\>", ",", "\<\"CrackLen\"\>", 
+   ",", "\<\"de\"\>", ",", "\<\"DefineBCs\"\>", 
+   ",", "\<\"DefineGaussAndSFInfo\"\>", ",", "\<\"DefineLoadStep\"\>", 
+   ",", "\<\"dims\"\>", ",", "\<\"DirichletBC\"\>", 
+   ",", "\<\"DirichletDof\"\>", ",", "\<\"DirichletPoints\"\>", 
+   ",", "\<\"DirichletVals\"\>", ",", "\<\"dN\"\>", ",", "\<\"dState\"\>", 
+   ",", "\<\"dt\"\>", ",", "\<\"dt$\"\>", ",", "\<\"d\[Epsilon]\"\>", 
+   ",", "\<\"d\[Epsilon]plas\"\>", ",", "\<\"d\[Sigma]\"\>", ",", "\<\"e\"\>",
+    ",", "\<\"e0\"\>", ",", "\<\"e0$\"\>", ",", "\<\"edge\"\>", 
+   ",", "\<\"Edge\"\>", ",", "\<\"Edges\"\>", ",", "\<\"Edge$\"\>", 
+   ",", "\<\"Eg\"\>", ",", "\<\"ELEd\"\>", ",", "\<\"ELEdu\"\>", 
+   ",", "\<\"ELEdu$\"\>", ",", "\<\"ELEEg\"\>", ",", "\<\"ELEf\"\>", 
+   ",", "\<\"ELEk\"\>", ",", "\<\"elementOrder\"\>", 
+   ",", "\<\"ElementQuad\"\>", ",", "\<\"ElementQuadEndId\"\>", 
+   ",", "\<\"ElementQuadSttId\"\>", ",", "\<\"ElementTri\"\>", 
+   ",", "\<\"ElementTriSttId\"\>", ",", "\<\"ElementType\"\>", 
+   ",", "\<\"ELEr\"\>", ",", "\<\"ELEt\"\>", ",", "\<\"ELEtMat\"\>", 
+   ",", "\<\"ELEu\"\>", ",", "\<\"ELE\[Sigma]\"\>", ",", "\<\"ElTypId\"\>", 
+   ",", "\<\"ElTypId$\"\>", ",", "\<\"Err\"\>", ",", "\<\"ExternalWork\"\>", 
+   ",", "\<\"ExternalWorkf\"\>", ",", "\<\"f\"\>", ",", "\<\"f0\"\>", 
+   ",", "\<\"f0$\"\>", ",", "\<\"factor\"\>", ",", "\<\"Fd\"\>", 
+   ",", "\<\"ff\"\>", ",", "\<\"fk\"\>", ",", "\<\"GaussIndex\"\>", 
+   ",", "\<\"gi\"\>", ",", "\<\"GuassIntegrate\"\>", 
+   ",", "\<\"GuassPointsNatural\"\>", ",", "\<\"GuassPointsSpatial\"\>", 
+   ",", "\<\"GuassWeights\"\>", ",", "\<\"i\"\>", ",", "\<\"IDArray\"\>", 
+   ",", "\<\"IDMat\"\>", ",", "\<\"IDno\"\>", ",", "\<\"IEN\"\>", 
+   ",", "\<\"IENS\"\>", ",", "\<\"InitializationUState\"\>", 
+   ",", "\<\"InitializeFEM\"\>", ",", "\<\"inp\"\>", ",", "\<\"Inp2Mesh\"\>", 
+   ",", "\<\"integrationOrder\"\>", ",", "\<\"itr\"\>", ",", "\<\"j\"\>", 
+   ",", "\<\"jacobi\"\>", ",", "\<\"KMat\"\>", ",", "\<\"KMat$\"\>", 
+   ",", "\<\"L\"\>", ",", "\<\"L1\"\>", ",", "\<\"L2\"\>", 
+   ",", "\<\"Left1\"\>", ",", "\<\"LoadEnd\"\>", ",", "\<\"LoadInc\"\>", 
+   ",", "\<\"LoadStep\"\>", ",", "\<\"LoadStt\"\>", ",", "\<\"M0\"\>", 
+   ",", "\<\"M1\"\>", ",", "\<\"MaterialProperty\"\>", 
+   ",", "\<\"MaxCellSize\"\>", ",", "\<\"MaxItr\"\>", ",", "\<\"mesh\"\>", 
+   ",", "\<\"MeshString\"\>", ",", "\<\"n\"\>", ",", "\<\"ndof\"\>", 
+   ",", "\<\"nel\"\>", ",", "\<\"nElTyp\"\>", ",", "\<\"nen\"\>", 
+   ",", "\<\"NetTrctn\"\>", ",", "\<\"NeumannBC\"\>", 
+   ",", "\<\"NeumannDof\"\>", ",", "\<\"NeumannPoints\"\>", 
+   ",", "\<\"NeumannVals\"\>", ",", "\<\"NewtonSolve\"\>", 
+   ",", "\<\"ngauss\"\>", ",", "\<\"NMat\"\>", ",", "\<\"nnp\"\>", 
+   ",", "\<\"NodeCoord\"\>", ",", "\<\"Nodes\"\>", ",", "\<\"NodeSttId\"\>", 
+   ",", "\<\"nsel\"\>", ",", "\<\"nsen\"\>", ",", "\<\"nsteps\"\>", 
+   ",", "\<\"OutEdge\"\>", ",", "\<\"ParallelResidual\"\>", 
+   ",", "\<\"ParallelStiffness\"\>", ",", "\<\"ParallelUpdateStates\"\>", 
+   ",", "\<\"PlotMeshBC\"\>", ",", "\<\"plt\"\>", ",", "\<\"PltPoints\"\>", 
+   ",", "\<\"PostProcess\"\>", ",", "\<\"PrintBB\"\>", ",", "\<\"PrintRB\"\>",
+    ",", "\<\"Q\"\>", ",", "\<\"r\"\>", ",", "\<\"RelaxFactor\"\>", 
+   ",", "\<\"Rit\"\>", ",", "\<\"RitBttm\"\>", ",", "\<\"rMat\"\>", 
+   ",", "\<\"rMat$\"\>", ",", "\<\"s\"\>", ",", "\<\"S\"\>", 
+   ",", "\<\"ShowBCs\"\>", ",", "\<\"ShowMesh\"\>", 
+   ",", "\<\"ShowNumbers\"\>", ",", "\<\"SolUd\"\>", ",", "\<\"SolUdMat\"\>", 
+   ",", "\<\"sol\[Epsilon]p\"\>", ",", "\<\"StepSize\"\>", 
+   ",", "\<\"stress\"\>", ",", "\<\"StressMat\"\>", ",", "\<\"StressMatf\"\>",
+    ",", "\<\"StressMatflocal\"\>", ",", "\<\"StressRecover\"\>", 
+   ",", "\<\"Tangent\"\>", ",", "\<\"TimePeriod\"\>", ",", "\<\"tMat\"\>", 
+   ",", "\<\"tol\"\>", ",", "\<\"Tp\"\>", ",", "\<\"TracInd\"\>", 
+   ",", "\<\"tVec\"\>", ",", "\<\"udMat\"\>", ",", "\<\"UdMat\"\>", 
+   ",", "\<\"udsol\"\>", ",", "\<\"Ufvec\"\>", ",", "\<\"uMat\"\>", 
+   ",", "\<\"UMat\"\>", ",", "\<\"UMat$\"\>", ",", "\<\"UpdateStates\"\>", 
+   ",", "\<\"UpdateStrainStress\"\>", ",", "\<\"uVec\"\>", 
+   ",", "\<\"wfvec\"\>", ",", "\<\"wMat\"\>", ",", "\<\"x\"\>", 
+   ",", "\<\"X\"\>", ",", "\<\"Y\"\>", ",", "\<\"\[ScriptI]\"\>", 
+   ",", "\<\"\[ScriptCapitalI]\"\>", ",", "\<\"\[ScriptCapitalI]f\"\>", 
+   ",", "\<\"\[ScriptCapitalI]k\"\>", ",", "\<\"\[ScriptCapitalI]r\"\>", 
+   ",", "\<\"\[ScriptM]\"\>", ",", "\<\"\[ScriptN]\"\>", 
+   ",", "\<\"\[DoubleStruckCapitalI]0\"\>", ",", "\<\"\[Alpha]\"\>", 
+   ",", "\<\"\[Beta]\"\>", ",", "\<\"\[Gamma]\"\>", 
+   ",", "\<\"\[CapitalDelta]\[Epsilon]plas\"\>", 
+   ",", "\<\"\[CapitalEpsilon]\"\>", ",", "\<\"\[Epsilon]0\"\>", 
+   ",", "\<\"\[Epsilon]dot0\"\>", ",", "\<\"\[Epsilon]plas\"\>", 
+   ",", "\<\"\[Epsilon]plasin\"\>", ",", "\<\"\[Epsilon]plasNew\"\>", 
+   ",", "\<\"\[CapitalKappa]\"\>", ",", "\<\"\[Lambda]\"\>", 
+   ",", "\<\"\[Mu]\"\>", ",", "\<\"\[Nu]\"\>", ",", "\<\"\[Xi]\"\>", 
+   ",", "\<\"\[Xi]$\"\>", ",", "\<\"\[Sigma]\"\>", 
+   ",", "\<\"\[Sigma]equiv\"\>", ",", "\<\"\[Sigma]in\"\>", 
+   ",", "\<\"\[Sigma]new\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.796736181980597*^9, {3.7967362407211018`*^9, 3.796736243953677*^9}, 
+   3.7967364222065477`*^9},
+ CellLabel->
+  "Out[372]=",ExpressionUUID->"461854bc-a88e-4ac7-ab4d-ab14c0b61bb1"]
+}, Open  ]]
+},
+WindowSize->{1280, 702},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 151, 3, 30, "Input",ExpressionUUID->"e09cc3e4-67fc-4971-a5f2-b14b0836e077"],
+Cell[712, 25, 644, 15, 52, "Input",ExpressionUUID->"91f53ea9-a0d1-462b-8c50-fe067a645492"],
+Cell[CellGroupData[{
+Cell[1381, 44, 1534, 43, 178, "Input",ExpressionUUID->"b36727f6-4453-4b73-879c-87f88ea6520e"],
+Cell[CellGroupData[{
+Cell[2940, 91, 305, 8, 24, "Print",ExpressionUUID->"e4ea6a89-82a9-4356-a002-b356a8a6ec7e"],
+Cell[3248, 101, 316, 8, 24, "Print",ExpressionUUID->"3b290ec4-d23e-4838-a2e6-d675696f5c8d"]
+}, Open  ]]
+}, Open  ]],
+Cell[3591, 113, 236, 5, 30, "Input",ExpressionUUID->"fc9567c5-0c66-401a-9a5b-5c661406c686"],
+Cell[CellGroupData[{
+Cell[3852, 122, 145, 3, 30, "Input",ExpressionUUID->"a6d01fd8-0ae2-4306-9bad-76e976162760"],
+Cell[4000, 127, 164, 3, 34, "Output",ExpressionUUID->"e5c0cd64-009f-47f1-a8ed-f515dd68aea7"]
+}, Open  ]],
+Cell[4179, 133, 290, 7, 52, "Input",ExpressionUUID->"e8a5b1fa-e3c0-4f36-a87a-a5dc85de18cb"],
+Cell[CellGroupData[{
+Cell[4494, 144, 5957, 164, 662, "Input",ExpressionUUID->"faab4fed-41e5-434d-8a7a-68991b246f34"],
+Cell[10454, 310, 852, 12, 34, "Output",ExpressionUUID->"b3be8c0f-6d12-4c4b-8650-d5286ab15d1c"],
+Cell[11309, 324, 1127, 20, 44, "Print",ExpressionUUID->"0f84a20a-7b92-492a-bc5a-ce53be3a2e3a"],
+Cell[12439, 346, 859, 13, 34, "Output",ExpressionUUID->"141e3dbb-d224-42de-9672-3078ce402944"],
+Cell[13301, 361, 842, 12, 34, "Output",ExpressionUUID->"aa757f61-b1ff-4fcf-b5a8-e34f17927439"],
+Cell[14146, 375, 844, 12, 34, "Output",ExpressionUUID->"6a47da83-2d93-4300-9664-2a4bc10996f2"],
+Cell[14993, 389, 856, 12, 34, "Output",ExpressionUUID->"593f8815-c4ea-4363-ab78-92008b909465"],
+Cell[15852, 403, 853, 12, 34, "Output",ExpressionUUID->"bf3b8559-0adb-440e-9ec5-13a17bda7b43"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16742, 420, 445, 13, 30, "Input",ExpressionUUID->"2c81574b-fc92-47d3-9952-c03e044ae85b"],
+Cell[17190, 435, 273, 7, 34, "Output",ExpressionUUID->"6732bc61-0657-4f95-8e89-288da5896d7c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17500, 447, 305, 6, 30, "Input",ExpressionUUID->"cdba2402-b079-49ce-974a-a5b3777e00f3"],
+Cell[17808, 455, 49181, 773, 5390, "Output",ExpressionUUID->"4d711567-b028-46c3-aca3-ea680dfb60b8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[67026, 1233, 154, 2, 30, "Input",ExpressionUUID->"f9d5ae0e-04a6-42db-915a-918925b64424"],
+Cell[67183, 1237, 199, 3, 34, "Output",ExpressionUUID->"bdc573d2-3ed9-48ab-ac44-1c47c3c05234"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[67419, 1245, 200, 4, 30, "Input",ExpressionUUID->"7da66bd9-8e0a-4756-9603-230767bf0ceb"],
+Cell[67622, 1251, 11788, 268, 163, "Output",ExpressionUUID->"9846e774-d1ea-4a35-8536-f4d134914a6f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[79447, 1524, 246, 5, 30, "Input",ExpressionUUID->"2eb19842-1966-474c-a60a-1682c91e2bf8"],
+Cell[79696, 1531, 5966, 90, 203, "Output",ExpressionUUID->"6768193f-11b3-4342-9768-a47b0a56aca4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[85699, 1626, 418, 12, 30, "Input",ExpressionUUID->"11adccc7-e7d6-4ae2-a999-2377da4b7b56"],
+Cell[86120, 1640, 10547, 254, 163, "Output",ExpressionUUID->"4c106486-2b3c-40b6-8f15-1dcf58f08c2d"]
+}, Open  ]],
+Cell[96682, 1897, 91, 0, 30, "Input",ExpressionUUID->"d9586e47-c355-4410-9621-13e7e173a1c8"],
+Cell[96776, 1899, 355, 8, 30, "Input",ExpressionUUID->"9ea27322-5e8a-40e4-975e-c9d1f72a2875"],
+Cell[97134, 1909, 237, 3, 30, InheritFromParent,ExpressionUUID->"66d9ec0c-cd69-4b93-8ab2-375e9f6e6562"],
+Cell[97374, 1914, 285, 7, 34, "Output",ExpressionUUID->"a402736b-a6e8-4efd-b5ca-176eaa60ab65"],
+Cell[97662, 1923, 142, 2, 30, "Input",ExpressionUUID->"dabc29ce-0ae9-4bf1-83b8-a7caa56bbbbe"],
+Cell[CellGroupData[{
+Cell[97829, 1929, 3160, 82, 211, "Input",ExpressionUUID->"516230cc-1ee3-4e7f-9723-0f82f968b6b9"],
+Cell[100992, 2013, 15860, 271, 3710, "Output",ExpressionUUID->"935c456b-aee0-4559-bd5c-ddadeff10a53"]
+}, Open  ]],
+Cell[116867, 2287, 208, 4, 30, InheritFromParent,ExpressionUUID->"78a825f1-0130-4491-ae6a-b836e7fe7e61"],
+Cell[117078, 2293, 171, 3, 34, "Output",ExpressionUUID->"5d5263e3-a528-4fd1-9567-8fbafbb50130"],
+Cell[CellGroupData[{
+Cell[117274, 2300, 222, 4, 30, "Input",ExpressionUUID->"142ad90d-0bef-4c0d-8ea1-2c34c547a88c"],
+Cell[117499, 2306, 8317, 212, 130, "Output",ExpressionUUID->"8ec72e3f-fba8-417a-9f1f-d993fc6b469e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[125853, 2523, 238, 4, 30, "Input",ExpressionUUID->"c457a42f-03b0-40ad-9b2a-acb80b12bc14"],
+Cell[126094, 2529, 10801, 233, 644, "Output",ExpressionUUID->"1d38e5aa-b022-481e-a4fd-a35e38fb66e7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[136932, 2767, 179, 3, 30, "Input",ExpressionUUID->"1c984d14-d189-4099-bdf2-d0dd605cf0ec"],
+Cell[137114, 2772, 207, 3, 34, "Output",ExpressionUUID->"ca06695f-c35e-4d4e-9401-b8b025f167fc"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[137358, 2780, 248, 5, 30, "Input",ExpressionUUID->"06866298-6d6f-4e7e-ba84-86fe2f5f7c6b"],
+Cell[137609, 2787, 5941, 91, 182, "Output",ExpressionUUID->"461854bc-a88e-4ac7-ab4d-ab14c0b61bb1"]
+}, Open  ]]
+}
+]
+*)
+

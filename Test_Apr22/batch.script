@@ -1,0 +1,25 @@
+#!/bin/bash
+
+## Request 3 days of walltime
+#SBATCH --time=10:00:00
+
+## Provide a job name
+#SBATCH -J mathematica-ViscoTest
+
+## Provide file names where standard output and error 
+## will be written
+#SBATCH -o ViscoTest.out
+#SBATCH -e ViscoTest.err
+
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=32
+
+## Load the mathematica module to set up the environment
+module load mathematica/12.0
+module load opengl/mesa-12.0.6
+
+srun hostname > nodefile_ViscoTest
+export NODEFILE=nodefile_ViscoTest
+
+## math -noprompt -run < 3PB_rescale_11k_elements_6k_neq_2.wls
+wolfram -script ViscoPlasticity_Apr22.wls
