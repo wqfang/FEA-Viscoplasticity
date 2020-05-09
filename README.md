@@ -9,5 +9,4 @@ Solution files of displacement field and stress field in each step is too large 
 I refer the viscoplastic model from [Prof. Bower's Applied Mechanics of Solid](http://solidmechanics.org/Text/Chapter8_5/Chapter8_5.php) book.
 
 
-Edited from HackMD.
 ###### tags: `github`
