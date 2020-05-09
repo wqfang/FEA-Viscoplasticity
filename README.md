@@ -1,4 +1,4 @@
-# FEA-Viscoplasticity-
+# FEA-Viscoplasticity
 FEA Viscoplasticity code
 
 The main file is `ViscoPlasticity.nb`
